@@ -18,7 +18,7 @@ node cli.mjs --versions 2.1.327,2.1.325   # 指定版本
 
 每次运行产出两个文件（`--no-html` 可跳过网页）：
 
-- `out/CHANGELOG.zh-CN.md` — Markdown 中文版
+- `out/versions/<版本号>.md` — Markdown 中文版，**每个版本一个独立文件**
 - `out/index.html` — **单文件网页版**（双击即开，无需服务器）：每版亮点置顶 + 完整明细按类别分组折叠展开、关键词搜索（明细 + 亮点 + 版本号，命中高亮，无命中的分组自动隐藏）、版本侧边导航（滚动联动高亮）、明暗主题自适应（可手动切换）、支持打印
 
 再次运行时自动**增量更新**：已翻译过的版本直接读缓存（`out/cache.json`），只为新版本调用 LLM。
@@ -98,7 +98,7 @@ node cli.mjs --model glm-4.7
 
 仓库：<https://github.com/xianshulaoshi/claude-code-changelog-cn>
 
-- `docs/` 为站点目录（`index.html` + `CHANGELOG.zh-CN.md`），由 `.github/workflows/deploy.yml` 在 push 后自动发布到 GitHub Pages
+- `docs/` 为站点目录（`index.html` + `versions/<版本号>.md` 每版本一档），由 `.github/workflows/deploy.yml` 在 push 后自动发布到 GitHub Pages
 - 一键更新部署：`./deploy.sh [N]`（默认收录最近 10 个版本，如 `./deploy.sh 30`）——增量翻译 → 拷贝到 `docs/` → 提交推送，Actions 自动上线
 
 本地自动定时更新并部署（crontab，每天 10:00）：
@@ -150,7 +150,7 @@ GitHub raw / jsDelivr 抓取 CHANGELOG.md（多源容错 + 本地缓存兜底）
         ↓
 缓存到 out/cache.json（逐版本落盘，可随时中断续跑）
         ↓
-渲染 out/CHANGELOG.zh-CN.md（每版本顶部亮点 + 完整中文明细）
+渲染 out/versions/<版本号>.md（每版本一个文件：顶部亮点 + 归类明细）
         ↓
 渲染 out/CHANGELOG.zh-CN.html（单文件网页：搜索 / 导航 / 折叠 / 明暗主题）
 ```
