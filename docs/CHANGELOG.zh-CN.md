@@ -1,6 +1,6 @@
 # Claude Code 更新日志（中文版）
 
-> 由程序自动抓取官方 Changelog 并翻译整理 · 生成时间：2026-11-18 18:27 · 收录 443 个版本（已翻译 443）
+> 由程序自动抓取官方 Changelog 并翻译整理 · 生成时间：2026-11-18 18:32 · 收录 443 个版本（已翻译 443）
 > 原文：[anthropics/claude-code CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) · npm 最新版本：`2.1.327` · 数据源：https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
 
 > 每个版本顶部为「✨ 本版亮点」（新功能 🚀 / 改进 🔧 / 关键修复 🐛），由 LLM 从该版本全部条目中提炼；下方为完整中文明细。
