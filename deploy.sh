@@ -3,8 +3,12 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-LIMIT="${1:-10}"          # 默认收录最近 10 个版本：./deploy.sh 30 即收录 30 个
-node cli.mjs --limit "$LIMIT"
+LIMIT="${1:-10}"          # 默认收录最近 10 个版本；./deploy.sh 30 收录 30 个；./deploy.sh all 全部版本
+if [ "$LIMIT" = "all" ]; then
+  node cli.mjs --all
+else
+  node cli.mjs --limit "$LIMIT"
+fi
 
 mkdir -p docs
 cp out/index.html docs/index.html
