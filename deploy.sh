@@ -12,7 +12,8 @@ fi
 
 mkdir -p docs
 cp out/index.html docs/index.html
-cp out/CHANGELOG.zh-CN.md docs/CHANGELOG.zh-CN.md
+rm -rf docs/versions
+cp -R out/versions docs/versions
 
 git add docs
 if git diff --cached --quiet; then

@@ -8,7 +8,7 @@ import { fetchChangelog, fetchLatestNpmVersion, fetchNpmTimes, DEFAULT_SOURCES }
 import { parseChangelog, cmpVersion } from './lib/parse.mjs';
 import { resolveLLMConfig, runPool } from './lib/llm.mjs';
 import { translateVersion } from './lib/translate.mjs';
-import { renderMarkdown } from './lib/render.mjs';
+import { renderVersionPage } from './lib/render.mjs';
 import { renderHtml } from './lib/render-html.mjs';
 
 const TTY = process.stdout.isTTY;
@@ -140,22 +140,21 @@ async function main() {
     });
   }
 
-  // 6. 渲染输出
+  // 6. 渲染输出：每版本一个 md（versions/<v>.md）+ 网页版
   const latestNpm = await fetchLatestNpmVersion();
   if (latestNpm) vlog(`npm 最新版本: ${c.cyan(latestNpm)}`);
-  const md = renderMarkdown({
-    versions: selected,
-    translated: cache,
-    latestNpm,
-    source,
-  });
   if (values.stdout) {
-    process.stdout.write(md);
+    const pages = selected.map((v) => renderVersionPage(v, cache[v.version]));
+    process.stdout.write(pages.join('\n\n---\n\n') + '\n');
   } else {
     fs.mkdirSync(outDir, { recursive: true });
-    const outFile = path.join(outDir, 'CHANGELOG.zh-CN.md');
-    fs.writeFileSync(outFile, md);
-    vlog(`已写入 ${c.cyan(path.relative(process.cwd(), outFile) || outFile)}`);
+    const verDir = path.join(outDir, 'versions');
+    fs.rmSync(verDir, { recursive: true, force: true }); // 全量重建，避免残留旧版本
+    fs.mkdirSync(verDir, { recursive: true });
+    for (const v of selected) {
+      fs.writeFileSync(path.join(verDir, `${v.version}.md`), renderVersionPage(v, cache[v.version]));
+    }
+    vlog(`已写入 ${c.green(String(selected.length))} 个版本文件到 ${c.cyan(path.relative(process.cwd(), verDir) || verDir)}/`);
     if (!values['no-html']) {
       const htmlFile = path.join(outDir, 'index.html');
       fs.writeFileSync(htmlFile, renderHtml({ versions: selected, translated: cache, latestNpm, generatedAt: new Date(), source }));
