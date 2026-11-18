@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { fetchChangelog, fetchLatestNpmVersion, DEFAULT_SOURCES } from './lib/source.mjs';
+import { fetchChangelog, fetchLatestNpmVersion, fetchNpmTimes, DEFAULT_SOURCES } from './lib/source.mjs';
 import { parseChangelog, cmpVersion } from './lib/parse.mjs';
 import { resolveLLMConfig, runPool } from './lib/llm.mjs';
 import { translateVersion } from './lib/translate.mjs';
@@ -98,6 +98,12 @@ async function main() {
   });
   const allVersions = parseChangelog(rawMd);
   if (!allVersions.length) throw new Error('changelog 解析结果为空');
+
+  // 各版本 npm 发布时间（日期）
+  const npmTimes = await fetchNpmTimes({ outDir, log: vlog });
+  const withDate = Object.keys(npmTimes).length;
+  if (withDate) vlog(`已获取 ${withDate} 个版本的 npm 发布时间`);
+  for (const v of allVersions) v.date = npmTimes[v.version] || null;
   vlog(`解析到 ${allVersions.length} 个版本，最新为 ${c.cyan(allVersions[0].version)}`);
 
   // 3. 选择版本范围
