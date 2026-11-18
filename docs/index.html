@@ -29024,9 +29024,9 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:0 20px 40px
 </div>
 
 <button class="top-btn" id="topBtn" type="button" title="回到顶部">↑</button>
-<footer>由 claude-code-changelog 自动生成 · 原文：<a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" target="_blank" rel="noopener">anthropics/claude-code CHANGELOG.md</a></footer>
+<footer>由 claude-code-changelog 自动生成 · 原文：<a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" target="_blank" rel="noopener">anthropics/claude-code CHANGELOG.md</a> · <span class="pv" id="pv" data-ep="https://1451971551-0sblc81ss1.ap-guangzhou.tencentscf.com"></span></footer>
 
-<script id="page-data" type="application/json">{"latest":"2.1.327","latestNpm":"2.1.327","generatedAt":"2026-11-18 18:46","counts":{"versions":443,"entries":9906,"highlights":1503}}</script>
+<script id="page-data" type="application/json">{"latest":"2.1.327","latestNpm":"2.1.327","generatedAt":"2026-11-18 19:04","counts":{"versions":443,"entries":9906,"highlights":1503}}</script>
 <script>
 (function(){
   'use strict';
@@ -29260,6 +29260,17 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:0 20px 40px
   topBtn.addEventListener('click', function(){
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  /* ---------- PV 统计（端点存在才渲染元素；离线/失败静默隐藏） ---------- */
+  var pvEl = document.getElementById('pv');
+  if (pvEl) {
+    fetch(pvEl.getAttribute('data-ep'))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d && d.pv > 0) pvEl.textContent = '👁 本页已被访问 ' + d.pv + ' 次';
+      })
+      .catch(function(){ pvEl.remove(); });
+  }
 
   /* 初始化 */
   applyHash();
