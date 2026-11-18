@@ -41,4 +41,4 @@ fi
 # 4. 验证
 echo "远端调用测试："
 TC scf Invoke --FunctionName "$FN" --Namespace default --ClientContext '{"httpMethod":"GET"}' | grep RetMsg || true
-echo "完成。还差一步（CLI 无接口）：控制台 → 云函数 cc-pv → 函数 URL → 开启（免鉴权），把 URL 填到 lib/render-html.mjs 的 PV_ENDPOINT。"
+echo "完成。函数 URL 已配置在 lib/render-html.mjs 的 PV_ENDPOINT（如需更换，控制台 → 云函数 cc-pv → 函数 URL）。"
