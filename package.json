@@ -1,0 +1,13 @@
+{
+  "name": "claude-code-changelog-cn",
+  "version": "1.0.0",
+  "description": "自动抓取 Claude Code 官方 Changelog，翻译成中文，并在每个版本顶部提炼亮点（新功能/改进/关键修复）",
+  "type": "module",
+  "bin": { "cc-changelog": "./cli.mjs" },
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node cli.mjs",
+    "update": "node cli.mjs",
+    "latest": "node cli.mjs --latest"
+  }
+}
