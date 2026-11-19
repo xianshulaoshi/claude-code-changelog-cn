@@ -682,11 +682,11 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:0 20px 40px
         <div class="highlights">
           <h3>✨ 本版亮点</h3>
           <ul>
-            <li class="hl-chip-feature"><span class="chip chip-feature"><span class="chip-ico">🚀 </span><span class="chip-txt">新功能</span></span><span class="hl-text" data-text="Opus 4.6 与 Sonnet 4.6 在 Bedrock、Agent Platform、Foundry 等第三方平台支持 auto mode，交互会话默认启用">Opus 4.6 与 Sonnet 4.6 在 Bedrock、Agent Platform、Foundry 等第三方平台支持 auto mode，交互会话默认启用</span></li>
-            <li class="hl-chip-improve"><span class="chip chip-improve"><span class="chip-ico">🔧 </span><span class="chip-txt">改进</span></span><span class="hl-text" data-text="Code Mode 提速并实时显示脚本运行中的命令与输出，编辑失败时告知最接近的匹配位置">Code Mode 提速并实时显示脚本运行中的命令与输出，编辑失败时告知最接近的匹配位置</span></li>
-            <li class="hl-chip-fix"><span class="chip chip-fix"><span class="chip-ico">🐛 </span><span class="chip-txt">关键修复</span></span><span class="hl-text" data-text="修复 zsh 中含 `=` 开头词的 Bash 命令（如 `echo ====`、`[ a == b ]`）报 not found 中断">修复 zsh 中含 <code>=</code> 开头词的 Bash 命令（如 <code>echo ====</code>、<code>[ a == b ]</code>）报 not found 中断</span></li>
-            <li class="hl-chip-fix"><span class="chip chip-fix"><span class="chip-ico">🐛 </span><span class="chip-txt">关键修复</span></span><span class="hl-text" data-text="修复自动压缩复用会话早期系统提示、未按 `/compact` 方式重建的问题">修复自动压缩复用会话早期系统提示、未按 <code>/compact</code> 方式重建的问题</span></li>
-            <li class="hl-chip-improve"><span class="chip chip-improve"><span class="chip-ico">🔧 </span><span class="chip-txt">改进</span></span><span class="hl-text" data-text="`/code-review` 改为聚焦缺陷与 CLAUDE.md 违规，标注重要程度并附修复建议"><code>/code-review</code> 改为聚焦缺陷与 CLAUDE.md 违规，标注重要程度并附修复建议</span></li>
+            <li class="hl-chip-feature"><span class="chip chip-feature"><span class="chip-ico">🚀 </span><span class="chip-txt">新功能</span></span><span class="hl-text" data-text="Claude Opus 4.6 和 Sonnet 4.6 在 Bedrock、Agent Platform、Foundry 等平台新增 auto 模式">Claude Opus 4.6 和 Sonnet 4.6 在 Bedrock、Agent Platform、Foundry 等平台新增 auto 模式</span></li>
+            <li class="hl-chip-improve"><span class="chip chip-improve"><span class="chip-ico">🔧 </span><span class="chip-txt">改进</span></span><span class="hl-text" data-text="大幅改进 Code Mode：脚本提速、实时显示命令输出、编辑失败时告知最接近匹配位置">大幅改进 Code Mode：脚本提速、实时显示命令输出、编辑失败时告知最接近匹配位置</span></li>
+            <li class="hl-chip-fix"><span class="chip chip-fix"><span class="chip-ico">🐛 </span><span class="chip-txt">关键修复</span></span><span class="hl-text" data-text="修复 zsh 中 Bash 命令在以 = 开头的词处报错停止的问题">修复 zsh 中 Bash 命令在以 = 开头的词处报错停止的问题</span></li>
+            <li class="hl-chip-fix"><span class="chip chip-fix"><span class="chip-ico">🐛 </span><span class="chip-txt">关键修复</span></span><span class="hl-text" data-text="修复自动压缩沿用旧系统提示词而非像 /compact 那样重建的问题">修复自动压缩沿用旧系统提示词而非像 /compact 那样重建的问题</span></li>
+            <li class="hl-chip-improve"><span class="chip chip-improve"><span class="chip-ico">🔧 </span><span class="chip-txt">改进</span></span><span class="hl-text" data-text="加快大尺寸会话恢复速度，降低多图片会话与长会话的内存占用">加快大尺寸会话恢复速度，降低多图片会话与长会话的内存占用</span></li>
           </ul>
         </div>
         <div class="details">
@@ -694,165 +694,165 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:0 20px 40px
           <div class="group" data-cat="feature">
             <h4><span class="chip chip-feature">🚀 新功能</span><span class="muted">14 条</span></h4>
             <ul class="entries">
-              <li data-text="为 Amazon Bedrock、Google Cloud 的 Agent Platform、Microsoft Foundry 和 Claude apps gateway 上的 Claude Opus 4.6 与 Sonnet 4.6 新增 auto 模式；未设置权限模式的交互式会话将以该模式启动">为 Amazon Bedrock、Google Cloud 的 Agent Platform、Microsoft Foundry 和 Claude apps gateway 上的 Claude Opus 4.6 与 Sonnet 4.6 新增 auto 模式；未设置权限模式的交互式会话将以该模式启动</li>
-              <li data-text="为 `mcp_tool` 钩子新增 `&quot;onFailure&quot;: &quot;block&quot;`，与命令及 HTTP 钩子一致：调用失败的钩子将阻止相应操作">为 <code>mcp_tool</code> 钩子新增 <code>&quot;onFailure&quot;: &quot;block&quot;</code>，与命令及 HTTP 钩子一致：调用失败的钩子将阻止相应操作</li>
-              <li data-text="新增警告：来自跳过权限提示的会话的消息，可能被云端会话扣留并丢弃">新增警告：来自跳过权限提示的会话的消息，可能被云端会话扣留并丢弃</li>
-              <li data-text="当 OpenTelemetry exporter 未配置 endpoint、数据很可能因此丢失时，`/status` 和 `claude doctor` 会显示相应提示">当 OpenTelemetry exporter 未配置 endpoint、数据很可能因此丢失时，<code>/status</code> 和 <code>claude doctor</code> 会显示相应提示</li>
-              <li data-text="新增 `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`，让宿主可以阻止 `claude -p --resume` 与 `--continue` 运行被钩子延迟的工具调用">新增 <code>CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME</code>，让宿主可以阻止 <code>claude -p --resume</code> 与 <code>--continue</code> 运行被钩子延迟的工具调用</li>
-              <li data-text="新增支持：内嵌 Claude Code 的应用可启用策略插件的 `allowManagedModsOnly` 选项；管理员的托管设置仍优先">新增支持：内嵌 Claude Code 的应用可启用策略插件的 <code>allowManagedModsOnly</code> 选项；管理员的托管设置仍优先</li>
-              <li data-text="当策略的 `maxEffortLevel` 不是有效的 effort 级别时，Claude apps gateway 启动时会发出警告">当策略的 <code>maxEffortLevel</code> 不是有效的 effort 级别时，Claude apps gateway 启动时会发出警告</li>
-              <li data-text="Self-hosted runner：新增 `--repository-folder`，用于在 `--capacity 1` 时为会话使用的仓库文件夹命名，取代其在基础文件夹下的路径（该路径不能是符号链接）">Self-hosted runner：新增 <code>--repository-folder</code>，用于在 <code>--capacity 1</code> 时为会话使用的仓库文件夹命名，取代其在基础文件夹下的路径（该路径不能是符号链接）</li>
-              <li data-text="Self-hosted runner：当宿主的 settings.json 设置了会被会话忽略的默认权限模式时，启动时会发出警告">Self-hosted runner：当宿主的 settings.json 设置了会被会话忽略的默认权限模式时，启动时会发出警告</li>
-              <li data-text="Self-hosted runner：为 `claude self-hosted-runner orchestrator` 新增 `--hook-label`，将指定的会话标签传给 `spawn-runner` 钩子">Self-hosted runner：为 <code>claude self-hosted-runner orchestrator</code> 新增 <code>--hook-label</code>，将指定的会话标签传给 <code>spawn-runner</code> 钩子</li>
-              <li data-text="Self-hosted runner：为 `claude --environment` 新增 `--metadata key=value`，用于为 `spawn-runner` 钩子标记会话">Self-hosted runner：为 <code>claude --environment</code> 新增 <code>--metadata key=value</code>，用于为 <code>spawn-runner</code> 钩子标记会话</li>
-              <li data-text="Self-hosted runner：在 orchestrator 的 `/metrics` 中新增 `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds`，以便区分重新打开的会话与新会话的等待时长">Self-hosted runner：在 orchestrator 的 <code>/metrics</code> 中新增 <code>claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds</code>，以便区分重新打开的会话与新会话的等待时长</li>
+              <li data-text="为 Amazon Bedrock、Google Cloud 的 Agent Platform、Microsoft Foundry 和 Claude apps gateway 上的 Claude Opus 4.6 与 Sonnet 4.6 新增 auto 模式；未设置权限模式的交互式会话将默认以该模式启动">为 Amazon Bedrock、Google Cloud 的 Agent Platform、Microsoft Foundry 和 Claude apps gateway 上的 Claude Opus 4.6 与 Sonnet 4.6 新增 auto 模式；未设置权限模式的交互式会话将默认以该模式启动</li>
+              <li data-text="为 `mcp_tool` hooks 新增 `&quot;onFailure&quot;: &quot;block&quot;`，与命令和 HTTP hooks 一致：hook 调用失败时将阻止该操作">为 <code>mcp_tool</code> hooks 新增 <code>&quot;onFailure&quot;: &quot;block&quot;</code>，与命令和 HTTP hooks 一致：hook 调用失败时将阻止该操作</li>
+              <li data-text="新增警告：当某个跳过权限提示的会话发出的消息可能被云端会话挂起并丢弃时进行提示">新增警告：当某个跳过权限提示的会话发出的消息可能被云端会话挂起并丢弃时进行提示</li>
+              <li data-text="在 `/status` 和 `claude doctor` 中新增提示：当 OpenTelemetry exporter 未配置 endpoint 时，其数据很可能会丢失">在 <code>/status</code> 和 <code>claude doctor</code> 中新增提示：当 OpenTelemetry exporter 未配置 endpoint 时，其数据很可能会丢失</li>
+              <li data-text="新增 `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`，允许宿主环境阻止 `claude -p --resume` 和 `--continue` 运行被 hook 延迟的工具调用">新增 <code>CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME</code>，允许宿主环境阻止 <code>claude -p --resume</code> 和 <code>--continue</code> 运行被 hook 延迟的工具调用</li>
+              <li data-text="新增支持：嵌入 Claude Code 的应用可启用策略插件的 `allowManagedModsOnly` 选项；管理员的托管设置仍优先">新增支持：嵌入 Claude Code 的应用可启用策略插件的 <code>allowManagedModsOnly</code> 选项；管理员的托管设置仍优先</li>
+              <li data-text="当策略的 `maxEffortLevel` 不是有效的 effort 级别时，Claude apps gateway 在启动时新增相应警告">当策略的 <code>maxEffortLevel</code> 不是有效的 effort 级别时，Claude apps gateway 在启动时新增相应警告</li>
+              <li data-text="Self-hosted runner：新增 `--repository-folder`，用于在 `--capacity 1` 时为仓库指定会话使用的文件夹名称，替代其在基础文件夹下的路径（该路径不能是符号链接）">Self-hosted runner：新增 <code>--repository-folder</code>，用于在 <code>--capacity 1</code> 时为仓库指定会话使用的文件夹名称，替代其在基础文件夹下的路径（该路径不能是符号链接）</li>
+              <li data-text="Self-hosted runner：当宿主 settings.json 设置了会话会忽略的默认权限模式时，启动时新增警告">Self-hosted runner：当宿主 settings.json 设置了会话会忽略的默认权限模式时，启动时新增警告</li>
+              <li data-text="Self-hosted runner：为 `claude self-hosted-runner orchestrator` 新增 `--hook-label`，可将选定的会话标签传递给 `spawn-runner` hook">Self-hosted runner：为 <code>claude self-hosted-runner orchestrator</code> 新增 <code>--hook-label</code>，可将选定的会话标签传递给 <code>spawn-runner</code> hook</li>
+              <li data-text="Self-hosted runner：为 `claude --environment` 新增 `--metadata key=value`，用于为会话添加标签以供 `spawn-runner` hook 使用">Self-hosted runner：为 <code>claude --environment</code> 新增 <code>--metadata key=value</code>，用于为会话添加标签以供 <code>spawn-runner</code> hook 使用</li>
+              <li data-text="Self-hosted runner：在 orchestrator 的 `/metrics` 中新增 `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds`，可区分重新打开的会话与新会话的等待时间">Self-hosted runner：在 orchestrator 的 <code>/metrics</code> 中新增 <code>claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds</code>，可区分重新打开的会话与新会话的等待时间</li>
               <li data-text="Self-hosted runner：新增 orchestrator 指标 `claude_code_self_hosted_orchestrator_sessions_given_up_total`，按原因统计 Anthropic 放弃为会话启动 runner 的次数">Self-hosted runner：新增 orchestrator 指标 <code>claude_code_self_hosted_orchestrator_sessions_given_up_total</code>，按原因统计 Anthropic 放弃为会话启动 runner 的次数</li>
-              <li data-text="[VSCode] 当来自其他会话的消息被暂存时新增提示，并附上可允许该消息的设置文件链接">[VSCode] 当来自其他会话的消息被暂存时新增提示，并附上可允许该消息的设置文件链接</li>
+              <li data-text="[VSCode] 新增当来自其他会话的消息被暂存时的通知，并附上可允许其通过的设置文件链接">[VSCode] 新增当来自其他会话的消息被暂存时的通知，并附上可允许其通过的设置文件链接</li>
             </ul>
           </div>
           <div class="group" data-cat="improvement">
             <h4><span class="chip chip-improve">🔧 改进</span><span class="muted">19 条</span></h4>
             <ul class="entries">
-              <li data-text="改进了 `claude -p` 和 SDK 会话，现在会在后台获取拥有独立 git 仓库的 managed-settings 插件，供后续会话使用">改进了 <code>claude -p</code> 和 SDK 会话，现在会在后台获取拥有独立 git 仓库的 managed-settings 插件，供后续会话使用</li>
-              <li data-text="改进了全新机器上 `claude -p`、SDK 和 Claude Desktop 会话中来自 git marketplace 的 managed-settings 插件的加载速度；短时运行可能最多延迟 30 秒退出">改进了全新机器上 <code>claude -p</code>、SDK 和 Claude Desktop 会话中来自 git marketplace 的 managed-settings 插件的加载速度；短时运行可能最多延迟 30 秒退出</li>
-              <li data-text="缩短了恢复大型会话所需的时间">缩短了恢复大型会话所需的时间</li>
-              <li data-text="降低了恢复包含大量图片的会话时的内存占用">降低了恢复包含大量图片的会话时的内存占用</li>
-              <li data-text="改善了运行慢速命令或工具的长时 SDK 与桌面会话的内存占用和响应速度">改善了运行慢速命令或工具的长时 SDK 与桌面会话的内存占用和响应速度</li>
-              <li data-text="通过移除大多数脚本执行后的 0.75 秒停顿，提升了 Code Mode 在 auto 和 bypass-permissions 模式下的速度">通过移除大多数脚本执行后的 0.75 秒停顿，提升了 Code Mode 在 auto 和 bypass-permissions 模式下的速度</li>
-              <li data-text="改进了带有 MCP 服务器的新 Code Mode 会话的 prompt 缓存，并会在服务器仍在连接或服务器列表变化时告知 Claude">改进了带有 MCP 服务器的新 Code Mode 会话的 prompt 缓存，并会在服务器仍在连接或服务器列表变化时告知 Claude</li>
-              <li data-text="通过更简短的工具描述降低了 Code Mode 的 token 消耗">通过更简短的工具描述降低了 Code Mode 的 token 消耗</li>
-              <li data-text="Code Mode 现在会在脚本运行时显示其正在执行的命令及输出">Code Mode 现在会在脚本运行时显示其正在执行的命令及输出</li>
-              <li data-text="改进了 Code Mode 的编辑：无实际改动的编辑不再中断脚本，且会告知 Claude 失败的编辑在何处匹配或最接近">改进了 Code Mode 的编辑：无实际改动的编辑不再中断脚本，且会告知 Claude 失败的编辑在何处匹配或最接近</li>
-              <li data-text="改进了 Code Mode：脚本失败时会告知 Claude 当时仍在运行的工具调用">改进了 Code Mode：脚本失败时会告知 Claude 当时仍在运行的工具调用</li>
-              <li data-text="改进了 Code Mode 在 auto 和 bypass 模式下 Claude 启动开发服务器的方式：Claude 会将其作为后台任务运行，并显示在 `/tasks` 中">改进了 Code Mode 在 auto 和 bypass 模式下 Claude 启动开发服务器的方式：Claude 会将其作为后台任务运行，并显示在 <code>/tasks</code> 中</li>
-              <li data-text="Windows：改进了 Code Mode，现在会告知 Claude 脚本的 shell 命令在 Git Bash 中运行，且 PowerShell 中同名别名会优先于函数执行">Windows：改进了 Code Mode，现在会告知 Claude 脚本的 shell 命令在 Git Bash 中运行，且 PowerShell 中同名别名会优先于函数执行</li>
-              <li data-text="改进了同时启动多个进程内 teammate 的情况：出现 &quot;Lock file is already being held&quot; 失败的情况大幅减少">改进了同时启动多个进程内 teammate 的情况：出现 &quot;Lock file is already being held&quot; 失败的情况大幅减少</li>
-              <li data-text="改进了 computer use 审批对话框：现在会显示每个应用的访问权限级别和更清晰的警告信息">改进了 computer use 审批对话框：现在会显示每个应用的访问权限级别和更清晰的警告信息</li>
-              <li data-text="改进了跨会话消息功能：当云端会话或另一台计算机未出现在列表中时，Claude 现在会说明 Remote Control 已关闭">改进了跨会话消息功能：当云端会话或另一台计算机未出现在列表中时，Claude 现在会说明 Remote Control 已关闭</li>
-              <li data-text="改进了 `claude -p` 的文本输出：当来自其他会话的消息被暂存或丢弃时，会在 stderr 上输出提示及允许方法">改进了 <code>claude -p</code> 的文本输出：当来自其他会话的消息被暂存或丢弃时，会在 stderr 上输出提示及允许方法</li>
-              <li data-text="改进了 Claude 对“谁可以打开其发布的 artifact”的回答：Claude 现在会重新检查 artifact，而不是重复上次发布时的答案">改进了 Claude 对“谁可以打开其发布的 artifact”的回答：Claude 现在会重新检查 artifact，而不是重复上次发布时的答案</li>
-              <li data-text="改进了恢复的自托管 runner 会话：Claude 现在会检查先前的工作是否仍然存在，并说明缺失的内容">改进了恢复的自托管 runner 会话：Claude 现在会检查先前的工作是否仍然存在，并说明缺失的内容</li>
+              <li data-text="改进 `claude -p` 和 SDK 会话，使其在后台拉取拥有独立 git 仓库的托管设置（managed-settings）插件，供后续会话使用">改进 <code>claude -p</code> 和 SDK 会话，使其在后台拉取拥有独立 git 仓库的托管设置（managed-settings）插件，供后续会话使用</li>
+              <li data-text="改进 `claude -p`、SDK 和 Claude Desktop 会话中来自 git marketplace 的托管设置插件在全新机器上的加载速度；短时运行可能会晚最多 30 秒退出">改进 <code>claude -p</code>、SDK 和 Claude Desktop 会话中来自 git marketplace 的托管设置插件在全新机器上的加载速度；短时运行可能会晚最多 30 秒退出</li>
+              <li data-text="缩短恢复大型会话所需的时间">缩短恢复大型会话所需的时间</li>
+              <li data-text="降低恢复包含大量图片的会话时的内存占用">降低恢复包含大量图片的会话时的内存占用</li>
+              <li data-text="降低长时间运行缓慢命令或工具的 SDK 和桌面会话的内存占用并缩短响应时间">降低长时间运行缓慢命令或工具的 SDK 和桌面会话的内存占用并缩短响应时间</li>
+              <li data-text="改进 Code Mode 在 auto 和 bypass-permissions 模式下的速度，移除了大多数脚本后的 0.75 秒暂停">改进 Code Mode 在 auto 和 bypass-permissions 模式下的速度，移除了大多数脚本后的 0.75 秒暂停</li>
+              <li data-text="改进带有 MCP 服务器的新 Code Mode 会话的提示缓存（prompt caching），并且 Claude 现在会被告知某个服务器仍在连接中以及服务器列表何时变化">改进带有 MCP 服务器的新 Code Mode 会话的提示缓存（prompt caching），并且 Claude 现在会被告知某个服务器仍在连接中以及服务器列表何时变化</li>
+              <li data-text="通过更短的工具描述改进 Code Mode 的 token 使用">通过更短的工具描述改进 Code Mode 的 token 使用</li>
+              <li data-text="改进 Code Mode：脚本运行时现在会显示其正在执行的命令及输出">改进 Code Mode：脚本运行时现在会显示其正在执行的命令及输出</li>
+              <li data-text="改进 Code Mode 的编辑操作：无实际更改的编辑不再中止脚本，并且 Claude 会被告知失败的编辑在何处匹配或最接近的位置">改进 Code Mode 的编辑操作：无实际更改的编辑不再中止脚本，并且 Claude 会被告知失败的编辑在何处匹配或最接近的位置</li>
+              <li data-text="改进 Code Mode：Claude 现在会被告知脚本失败时哪些工具调用仍在运行">改进 Code Mode：Claude 现在会被告知脚本失败时哪些工具调用仍在运行</li>
+              <li data-text="改进 Claude 在 Code Mode 的 auto 和 bypass 模式下启动开发服务器的方式：Claude 会被要求将其作为后台任务运行，并显示在 `/tasks` 中">改进 Claude 在 Code Mode 的 auto 和 bypass 模式下启动开发服务器的方式：Claude 会被要求将其作为后台任务运行，并显示在 <code>/tasks</code> 中</li>
+              <li data-text="Windows：改进 Code Mode，告知 Claude 脚本的 shell 命令运行在 Git Bash 中，且 PowerShell 的别名会优先于同名函数执行">Windows：改进 Code Mode，告知 Claude 脚本的 shell 命令运行在 Git Bash 中，且 PowerShell 的别名会优先于同名函数执行</li>
+              <li data-text="改进同时启动多个进程内 teammate 的体验：出现 &quot;Lock file is already being held&quot; 失败的情况大幅减少">改进同时启动多个进程内 teammate 的体验：出现 &quot;Lock file is already being held&quot; 失败的情况大幅减少</li>
+              <li data-text="改进 computer use 审批对话框：现在会显示每个应用的访问权限级别和更直白的警告">改进 computer use 审批对话框：现在会显示每个应用的访问权限级别和更直白的警告</li>
+              <li data-text="改进跨会话消息传递：当云端会话或另一台计算机未列出时，Claude 现在会说明 Remote Control 已关闭">改进跨会话消息传递：当云端会话或另一台计算机未列出时，Claude 现在会说明 Remote Control 已关闭</li>
+              <li data-text="改进 `claude -p` 的文本输出：当来自其他会话的消息被暂存或丢弃时，会在 stderr 上说明情况及如何允许其通过">改进 <code>claude -p</code> 的文本输出：当来自其他会话的消息被暂存或丢弃时，会在 stderr 上说明情况及如何允许其通过</li>
+              <li data-text="改进 Claude 对“谁能打开其发布的 artifact”的回答：Claude 现在会被要求重新检查 artifact，而不是重复上次发布时的答案">改进 Claude 对“谁能打开其发布的 artifact”的回答：Claude 现在会被要求重新检查 artifact，而不是重复上次发布时的答案</li>
+              <li data-text="改进恢复的 self-hosted runner 会话：Claude 现在会检查其之前的工作是否仍在，并说明缺失的内容">改进恢复的 self-hosted runner 会话：Claude 现在会检查其之前的工作是否仍在，并说明缺失的内容</li>
             </ul>
           </div>
           <div class="group" data-cat="change">
             <h4><span class="chip chip-change">🔄 变更</span><span class="muted">20 条</span></h4>
             <ul class="entries">
-              <li data-text="对于第三方提供商上的 Opus 4.6 和 Sonnet 4.6，plan mode 和 Bash 提示现在与新模型一样使用并提供 auto 模式；`disableAutoMode` 可将两者一并关闭">对于第三方提供商上的 Opus 4.6 和 Sonnet 4.6，plan mode 和 Bash 提示现在与新模型一样使用并提供 auto 模式；<code>disableAutoMode</code> 可将两者一并关闭</li>
-              <li data-text="Code Mode 不再对脚本输出运行 UserPromptSubmit hooks（包括托管 hooks）；若要对该输出进行脱敏，请使用带 `updatedToolOutput` 的 PostToolUse hook">Code Mode 不再对脚本输出运行 UserPromptSubmit hooks（包括托管 hooks）；若要对该输出进行脱敏，请使用带 <code>updatedToolOutput</code> 的 PostToolUse hook</li>
-              <li data-text="在大多数模型上，`/code-review` 现在仅报告 bug 和 CLAUDE.md 违规；如需复用、简化和效率方面的清理，请运行 `/simplify`">在大多数模型上，<code>/code-review</code> 现在仅报告 bug 和 CLAUDE.md 违规；如需复用、简化和效率方面的清理，请运行 <code>/simplify</code></li>
-              <li data-text="在大多数模型上，`/code-review` 现在会将每项发现标记为 Important、Pre-existing 或 Nit，并在每条摘要末尾给出建议修复；通过审查的列表现在显示为 &quot;Code review found no issues.&quot;">在大多数模型上，<code>/code-review</code> 现在会将每项发现标记为 Important、Pre-existing 或 Nit，并在每条摘要末尾给出建议修复；通过审查的列表现在显示为 &quot;Code review found no issues.&quot;</li>
-              <li data-text="`deniedMcpServers` 中形如 `claude.ai &lt;name&gt;` 的条目现在同样适用于云端和自托管 runner 会话中的相应 connector"><code>deniedMcpServers</code> 中形如 <code>claude.ai &lt;name&gt;</code> 的条目现在同样适用于云端和自托管 runner 会话中的相应 connector</li>
-              <li data-text="托管的 `PostToolUse` hooks 不再针对运行前即被拒绝的调用触发：不再产生日志条目、重写、阻止或停止；`PostToolBatch` 仍会接收其中大多数，但不会标记为被拒绝">托管的 <code>PostToolUse</code> hooks 不再针对运行前即被拒绝的调用触发：不再产生日志条目、重写、阻止或停止；<code>PostToolBatch</code> 仍会接收其中大多数，但不会标记为被拒绝</li>
-              <li data-text="`/bug` 现在会在发送前询问 Yes 或 No，重复按 Enter 不再误发报告或打开 GitHub"><code>/bug</code> 现在会在发送前询问 Yes 或 No，重复按 Enter 不再误发报告或打开 GitHub</li>
-              <li data-text="当设置了 `CLAUDE_CODE_FORK_SUBAGENT=0` 时，`claude -p`、Agent SDK、桌面版和 VS Code 中的 subagent 现在默认会等待其自身的 subagent">当设置了 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 时，<code>claude -p</code>、Agent SDK、桌面版和 VS Code 中的 subagent 现在默认会等待其自身的 subagent</li>
-              <li data-text="在设置 `CLAUDE_CODE_FORK_SUBAGENT=0` 的 `claude -p` 中，后台 subagent 及其等待的 subagent 现在共享一次 10 分钟的等待额度；更长的链路请调高 `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS`">在设置 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 的 <code>claude -p</code> 中，后台 subagent 及其等待的 subagent 现在共享一次 10 分钟的等待额度；更长的链路请调高 <code>CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS</code></li>
-              <li data-text="被 PermissionRequest hook 重写为沙箱排除命令的 shell 命令，现在会在沙箱之外运行">被 PermissionRequest hook 重写为沙箱排除命令的 shell 命令，现在会在沙箱之外运行</li>
-              <li data-text="Claude in Chrome 欢迎界面和 `/chrome` 现在会说明：除非权限模式或 `/permissions` 中的规则已给出答案，否则 Claude Code 会在 Claude 对网站执行操作前先行询问">Claude in Chrome 欢迎界面和 <code>/chrome</code> 现在会说明：除非权限模式或 <code>/permissions</code> 中的规则已给出答案，否则 Claude Code 会在 Claude 对网站执行操作前先行询问</li>
-              <li data-text="使用第三方提供商或关闭遥测/feature flags 的 Claude Desktop 和 Agent SDK 会话，在带有未回答问题时被关闭，现在会结束该回合，而非在没有答案的情况下继续">使用第三方提供商或关闭遥测/feature flags 的 Claude Desktop 和 Agent SDK 会话，在带有未回答问题时被关闭，现在会结束该回合，而非在没有答案的情况下继续</li>
-              <li data-text="在使用第三方提供商或关闭遥测/feature flags 的情况下，粘贴的文本现在也会为 Claude 标记为粘贴内容">在使用第三方提供商或关闭遥测/feature flags 的情况下，粘贴的文本现在也会为 Claude 标记为粘贴内容</li>
-              <li data-text="对于使用 Anthropic API 的终端会话，subagent 进度摘要现在改由默认小型快速模型根据简短笔记撰写（遥测关闭时同样适用），token 消耗大幅降低">对于使用 Anthropic API 的终端会话，subagent 进度摘要现在改由默认小型快速模型根据简短笔记撰写（遥测关闭时同样适用），token 消耗大幅降低</li>
-              <li data-text="更改了沙箱无法启动时的报告方式（除非设置了 `sandbox.failIfUnavailable`）：下一条沙箱化的 Bash 命令将被拒绝，并提示本会话的沙箱已关闭">更改了沙箱无法启动时的报告方式（除非设置了 <code>sandbox.failIfUnavailable</code>）：下一条沙箱化的 Bash 命令将被拒绝，并提示本会话的沙箱已关闭</li>
-              <li data-text="`/list-agents` 现在仅向你展示列表；Claude 会在需要时自行列出会话"><code>/list-agents</code> 现在仅向你展示列表；Claude 会在需要时自行列出会话</li>
-              <li data-text="自托管 runner：当设置按名称限制 Claude 的 GitHub 工具时，内置 `gh api` 现在默认关闭；`--use-anthropic-gh true` 可将其开启">自托管 runner：当设置按名称限制 Claude 的 GitHub 工具时，内置 <code>gh api</code> 现在默认关闭；<code>--use-anthropic-gh true</code> 可将其开启</li>
-              <li data-text="自托管 runner：在会话自身的 `claude` 启动前或结束后由包装脚本运行的 `claude`，现在不包含 Anthropic 管理的 git">自托管 runner：在会话自身的 <code>claude</code> 启动前或结束后由包装脚本运行的 <code>claude</code>，现在不包含 Anthropic 管理的 git</li>
-              <li data-text="自托管 runner：`CLAUDE_RUNNER_SESSION_UUID` 和 `CLAUDE_CODE_REMOTE_SESSION_UUID` 现在会在会话及其 `checkout`、`post-session` 和 `spawn-runner` hooks 中同时设置">自托管 runner：<code>CLAUDE_RUNNER_SESSION_UUID</code> 和 <code>CLAUDE_CODE_REMOTE_SESSION_UUID</code> 现在会在会话及其 <code>checkout</code>、<code>post-session</code> 和 <code>spawn-runner</code> hooks 中同时设置</li>
-              <li data-text="对于 `--capacity 1` 的自托管 runner，当其推送目标仓库路径为符号链接时，现在会更早地拒绝会话">对于 <code>--capacity 1</code> 的自托管 runner，当其推送目标仓库路径为符号链接时，现在会更早地拒绝会话</li>
+              <li data-text="变更第三方提供商上 Opus 4.6 和 Sonnet 4.6 的计划模式（plan mode）和 Bash 提示，改为使用并提供 auto 模式，与较新模型保持一致；`disableAutoMode` 可同时关闭两者">变更第三方提供商上 Opus 4.6 和 Sonnet 4.6 的计划模式（plan mode）和 Bash 提示，改为使用并提供 auto 模式，与较新模型保持一致；<code>disableAutoMode</code> 可同时关闭两者</li>
+              <li data-text="变更 Code Mode：不再对脚本输出运行 UserPromptSubmit hooks（包括托管 hooks）；如需对输出进行脱敏，请使用带 `updatedToolOutput` 的 PostToolUse hook">变更 Code Mode：不再对脚本输出运行 UserPromptSubmit hooks（包括托管 hooks）；如需对输出进行脱敏，请使用带 <code>updatedToolOutput</code> 的 PostToolUse hook</li>
+              <li data-text="变更大多数模型上的 `/code-review`，仅报告 bug 和 CLAUDE.md 违规；如需复用、简化和效率方面的清理，请运行 `/simplify`">变更大多数模型上的 <code>/code-review</code>，仅报告 bug 和 CLAUDE.md 违规；如需复用、简化和效率方面的清理，请运行 <code>/simplify</code></li>
+              <li data-text="变更 `/code-review`：在大多数模型上会将每个发现标记为 Important、Pre-existing 或 Nit，并在每条总结末尾给出建议的修复方式；通过审查的列表现在显示为 &quot;Code review found no issues.&quot;">变更 <code>/code-review</code>：在大多数模型上会将每个发现标记为 Important、Pre-existing 或 Nit，并在每条总结末尾给出建议的修复方式；通过审查的列表现在显示为 &quot;Code review found no issues.&quot;</li>
+              <li data-text="变更 `deniedMcpServers` 中形如 `claude.ai &lt;name&gt;` 的条目，使其在云端和 self-hosted runner 会话中同样适用于该连接器">变更 <code>deniedMcpServers</code> 中形如 <code>claude.ai &lt;name&gt;</code> 的条目，使其在云端和 self-hosted runner 会话中同样适用于该连接器</li>
+              <li data-text="变更托管的 `PostToolUse` hooks：不再对运行前即被拒绝的调用触发——不再产生日志条目、重写、拦截或停止；`PostToolBatch` 会接收大多数此类事件，但不标记为被拒绝">变更托管的 <code>PostToolUse</code> hooks：不再对运行前即被拒绝的调用触发——不再产生日志条目、重写、拦截或停止；<code>PostToolBatch</code> 会接收大多数此类事件，但不标记为被拒绝</li>
+              <li data-text="变更 `/bug` 在发送前询问 Yes 或 No，避免连续按 Enter 误发报告或打开 GitHub">变更 <code>/bug</code> 在发送前询问 Yes 或 No，避免连续按 Enter 误发报告或打开 GitHub</li>
+              <li data-text="变更 `claude -p`、Agent SDK、桌面版和 VS Code 中的 subagents：在设置 `CLAUDE_CODE_FORK_SUBAGENT=0` 时默认等待其自身的 subagents">变更 <code>claude -p</code>、Agent SDK、桌面版和 VS Code 中的 subagents：在设置 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 时默认等待其自身的 subagents</li>
+              <li data-text="变更设置 `CLAUDE_CODE_FORK_SUBAGENT=0` 时的 `claude -p`：后台 subagent 及其等待的对象共用一个 10 分钟等待额度；更长的链路请调高 `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS`">变更设置 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 时的 <code>claude -p</code>：后台 subagent 及其等待的对象共用一个 10 分钟等待额度；更长的链路请调高 <code>CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS</code></li>
+              <li data-text="变更被 PermissionRequest hook 重写为沙箱排除命令的 shell 命令，使其在沙箱外运行">变更被 PermissionRequest hook 重写为沙箱排除命令的 shell 命令，使其在沙箱外运行</li>
+              <li data-text="变更 Claude in Chrome 欢迎界面和 `/chrome` 的说明：Claude Code 会在 Claude 对网站执行操作前进行询问，除非你的权限模式或 `/permissions` 中的规则已给出答复">变更 Claude in Chrome 欢迎界面和 <code>/chrome</code> 的说明：Claude Code 会在 Claude 对网站执行操作前进行询问，除非你的权限模式或 <code>/permissions</code> 中的规则已给出答复</li>
+              <li data-text="变更第三方提供商上或关闭了遥测/功能开关的 Claude Desktop 和 Agent SDK 会话：在存在未回答的问题时关闭会话会结束当前轮次，而不是在没有答案的情况下继续">变更第三方提供商上或关闭了遥测/功能开关的 Claude Desktop 和 Agent SDK 会话：在存在未回答的问题时关闭会话会结束当前轮次，而不是在没有答案的情况下继续</li>
+              <li data-text="变更粘贴文本会被标记为粘贴内容告知 Claude（在第三方提供商上或关闭遥测/功能开关时同样生效）">变更粘贴文本会被标记为粘贴内容告知 Claude（在第三方提供商上或关闭遥测/功能开关时同样生效）</li>
+              <li data-text="变更终端会话中 subagent 进度摘要的生成方式：在 Anthropic API 上改由默认的小型快速模型根据简短笔记撰写（遥测关闭时同样生效），token 消耗大幅降低">变更终端会话中 subagent 进度摘要的生成方式：在 Anthropic API 上改由默认的小型快速模型根据简短笔记撰写（遥测关闭时同样生效），token 消耗大幅降低</li>
+              <li data-text="变更无法启动沙箱时的报告方式（除非设置了 `sandbox.failIfUnavailable`）：下一条沙箱化的 Bash 命令会被拒绝，并说明本会话中沙箱已关闭">变更无法启动沙箱时的报告方式（除非设置了 <code>sandbox.failIfUnavailable</code>）：下一条沙箱化的 Bash 命令会被拒绝，并说明本会话中沙箱已关闭</li>
+              <li data-text="变更 `/list-agents` 仅向你本人显示列表；Claude 会在需要时自行列出会话">变更 <code>/list-agents</code> 仅向你本人显示列表；Claude 会在需要时自行列出会话</li>
+              <li data-text="Self-hosted runner：变更内置 `gh api` 在设置按名称守护 Claude 的 GitHub 工具时默认关闭；`--use-anthropic-gh true` 可开启">Self-hosted runner：变更内置 <code>gh api</code> 在设置按名称守护 Claude 的 GitHub 工具时默认关闭；<code>--use-anthropic-gh true</code> 可开启</li>
+              <li data-text="Self-hosted runner：变更包装脚本在会话自身的 `claude` 启动前或结束后运行的 `claude`，使其不使用 Anthropic 管理的 git">Self-hosted runner：变更包装脚本在会话自身的 <code>claude</code> 启动前或结束后运行的 <code>claude</code>，使其不使用 Anthropic 管理的 git</li>
+              <li data-text="Self-hosted runner：变更 `CLAUDE_RUNNER_SESSION_UUID` 和 `CLAUDE_CODE_REMOTE_SESSION_UUID`，两者现在都会为会话及其 `checkout`、`post-session` 和 `spawn-runner` hooks 设置">Self-hosted runner：变更 <code>CLAUDE_RUNNER_SESSION_UUID</code> 和 <code>CLAUDE_CODE_REMOTE_SESSION_UUID</code>，两者现在都会为会话及其 <code>checkout</code>、<code>post-session</code> 和 <code>spawn-runner</code> hooks 设置</li>
+              <li data-text="变更 `--capacity 1` 的 self-hosted runner：当其推送的仓库路径为符号链接时，会更早拒绝会话">变更 <code>--capacity 1</code> 的 self-hosted runner：当其推送的仓库路径为符号链接时，会更早拒绝会话</li>
             </ul>
           </div>
           <div class="group" data-cat="fix">
             <h4><span class="chip chip-fix">🐛 修复</span><span class="muted">91 条</span></h4>
             <ul class="entries">
-              <li data-text="修复 zsh 中 Bash 命令在以 `=` 开头的词处报 &quot;not found&quot; 错误而中止的问题（如 `echo ====` 或 `[ a == b ]`）；`=cmd` 不再展开为命令的路径">修复 zsh 中 Bash 命令在以 <code>=</code> 开头的词处报 &quot;not found&quot; 错误而中止的问题（如 <code>echo ====</code> 或 <code>[ a == b ]</code>）；<code>=cmd</code> 不再展开为命令的路径</li>
-              <li data-text="修复自动压缩复用会话早前的系统提示词、而不是像 `/compact` 那样重建的问题">修复自动压缩复用会话早前的系统提示词、而不是像 <code>/compact</code> 那样重建的问题</li>
-              <li data-text="修复某些超长或格式错误的输入导致 markdown 渲染冻结的问题">修复某些超长或格式错误的输入导致 markdown 渲染冻结的问题</li>
-              <li data-text="修复偶发的屏幕冻结问题">修复偶发的屏幕冻结问题</li>
-              <li data-text="修复紧随权限提示或提问之后输入时 Esc 经常失效的问题；在将 Alt 以 Esc 加按键发送的终端中，单独按下的 Alt 或 Option 键现在可在该处执行拒绝">修复紧随权限提示或提问之后输入时 Esc 经常失效的问题；在将 Alt 以 Esc 加按键发送的终端中，单独按下的 Alt 或 Option 键现在可在该处执行拒绝</li>
-              <li data-text="修复慢速连接将粘贴内容或终端应答截成两段时，被当作输入打进提示框的问题">修复慢速连接将粘贴内容或终端应答截成两段时，被当作输入打进提示框的问题</li>
-              <li data-text="修复在第三方提供商上或关闭遥测/功能开关时，定时任务文件无法读取会导致保存定时任务清空项目其他已保存任务的问题">修复在第三方提供商上或关闭遥测/功能开关时，定时任务文件无法读取会导致保存定时任务清空项目其他已保存任务的问题</li>
-              <li data-text="修复项目定时任务文件中拼写有误的定时任务在下次保存该文件时被删除的问题">修复项目定时任务文件中拼写有误的定时任务在下次保存该文件时被删除的问题</li>
-              <li data-text="修复消息保存过晚时，恢复的云端会话可能丢失压缩摘要或近期消息的问题">修复消息保存过晚时，恢复的云端会话可能丢失压缩摘要或近期消息的问题</li>
-              <li data-text="修复 spinner 和子代理的 token 计数将重试的回复计两次、漏掉未流式传输的回复、并在 Claude 思考时停滞不动的问题">修复 spinner 和子代理的 token 计数将重试的回复计两次、漏掉未流式传输的回复、并在 Claude 思考时停滞不动的问题</li>
-              <li data-text="修复响应中途使用额度耗尽时显示的错误误报为速率限制的问题">修复响应中途使用额度耗尽时显示的错误误报为速率限制的问题</li>
-              <li data-text="修复在 Bedrock、Agent Platform、Foundry 或 Claude apps gateway 上、网关拒绝 beta 且设置了 `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` 时，Claude Desktop 之外的 auto 模式每一轮都失败的问题">修复在 Bedrock、Agent Platform、Foundry 或 Claude apps gateway 上、网关拒绝 beta 且设置了 <code>CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS</code> 时，Claude Desktop 之外的 auto 模式每一轮都失败的问题</li>
+              <li data-text="修复 zsh 中 Bash 命令在以 `=` 开头的单词处报 &quot;not found&quot; 错误而中止的问题（如 `echo ====` 或 `[ a == b ]`）；`=cmd` 不再展开为命令路径">修复 zsh 中 Bash 命令在以 <code>=</code> 开头的单词处报 &quot;not found&quot; 错误而中止的问题（如 <code>echo ====</code> 或 <code>[ a == b ]</code>）；<code>=cmd</code> 不再展开为命令路径</li>
+              <li data-text="修复自动压缩复用会话早前的系统提示词，而非像 `/compact` 那样重建的问题">修复自动压缩复用会话早前的系统提示词，而非像 <code>/compact</code> 那样重建的问题</li>
+              <li data-text="修复某些极长或格式错误的输入导致 markdown 渲染冻结的问题">修复某些极长或格式错误的输入导致 markdown 渲染冻结的问题</li>
+              <li data-text="修复偶发的屏幕冻结">修复偶发的屏幕冻结</li>
+              <li data-text="修复在权限提示或问题出现后立即输入时 Esc 经常失效的问题；在将 Alt 发送为 Esc 加按键的终端中，未使用的 Alt 或 Option 键现在可在该处执行拒绝操作">修复在权限提示或问题出现后立即输入时 Esc 经常失效的问题；在将 Alt 发送为 Esc 加按键的终端中，未使用的 Alt 或 Option 键现在可在该处执行拒绝操作</li>
+              <li data-text="修复慢速连接将粘贴内容或终端应答截成两段时，后半段被输入到提示框中的问题">修复慢速连接将粘贴内容或终端应答截成两段时，后半段被输入到提示框中的问题</li>
+              <li data-text="修复在第三方提供商上或关闭遥测/功能开关时，保存计划任务会因无法读取计划任务文件而清空项目其他已保存任务的问题">修复在第三方提供商上或关闭遥测/功能开关时，保存计划任务会因无法读取计划任务文件而清空项目其他已保存任务的问题</li>
+              <li data-text="修复项目计划任务文件中存在拼写错误的计划任务在该文件下次保存时被删除的问题">修复项目计划任务文件中存在拼写错误的计划任务在该文件下次保存时被删除的问题</li>
+              <li data-text="修复某个恢复的云端会话在消息保存延迟时可能丢失压缩摘要或近期消息的问题">修复某个恢复的云端会话在消息保存延迟时可能丢失压缩摘要或近期消息的问题</li>
+              <li data-text="修复加载动画和子代理的 token 计数问题：重试的回复被重复计数、未流式传输的回复被漏计、Claude 思考时计数停滞">修复加载动画和子代理的 token 计数问题：重试的回复被重复计数、未流式传输的回复被漏计、Claude 思考时计数停滞</li>
+              <li data-text="修复用量额度在响应中途耗尽时显示的错误信息误称其为速率限制的问题">修复用量额度在响应中途耗尽时显示的错误信息误称其为速率限制的问题</li>
+              <li data-text="修复在 Bedrock、Agent Platform、Foundry 或 Claude apps gateway 上，设置了 `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` 且网关拒绝 betas 时，auto 模式在 Claude Desktop 之外的每一轮都失败的问题">修复在 Bedrock、Agent Platform、Foundry 或 Claude apps gateway 上，设置了 <code>CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS</code> 且网关拒绝 betas 时，auto 模式在 Claude Desktop 之外的每一轮都失败的问题</li>
               <li data-text="修复 `CLAUDE_STREAM_IDLE_TIMEOUT_MS` 无法延长网关、自定义 base URL 和云提供商上 5 分钟连接限制的问题">修复 <code>CLAUDE_STREAM_IDLE_TIMEOUT_MS</code> 无法延长网关、自定义 base URL 和云提供商上 5 分钟连接限制的问题</li>
-              <li data-text="修复第三方提供商上的部分 Claude Desktop 会话（定时任务除外）在大型工具结果后永久报 &quot;Prompt is too long&quot; 而终止的问题；现在会排除其中最大的结果">修复第三方提供商上的部分 Claude Desktop 会话（定时任务除外）在大型工具结果后永久报 &quot;Prompt is too long&quot; 而终止的问题；现在会排除其中最大的结果</li>
+              <li data-text="修复 Claude Desktop 在第三方提供商上的部分会话（计划任务除外）在大型工具结果后以 &quot;Prompt is too long&quot; 永久终止的问题；现在会排除最大的结果">修复 Claude Desktop 在第三方提供商上的部分会话（计划任务除外）在大型工具结果后以 &quot;Prompt is too long&quot; 永久终止的问题；现在会排除最大的结果</li>
               <li data-text="修复输入 schema 以 `anyOf`、`oneOf` 或 `allOf` 开头的 MCP 工具在第三方提供商上或关闭遥测/功能开关时丢失的问题">修复输入 schema 以 <code>anyOf</code>、<code>oneOf</code> 或 <code>allOf</code> 开头的 MCP 工具在第三方提供商上或关闭遥测/功能开关时丢失的问题</li>
-              <li data-text="修复输入 schema 无效的 MCP 工具在第三方提供商上或关闭遥测/功能开关时导致请求失败的问题；现在会排除该工具并告知 Claude 原因">修复输入 schema 无效的 MCP 工具在第三方提供商上或关闭遥测/功能开关时导致请求失败的问题；现在会排除该工具并告知 Claude 原因</li>
-              <li data-text="修复 Bedrock、Google Cloud 的 Agent Platform 或 Foundry 拒绝子代理进度摘要的 effort 设置时，该会话中子代理模型的 effort 被关闭的问题（2.1.327 引入的回归）">修复 Bedrock、Google Cloud 的 Agent Platform 或 Foundry 拒绝子代理进度摘要的 effort 设置时，该会话中子代理模型的 effort 被关闭的问题（2.1.327 引入的回归）</li>
-              <li data-text="修复在 auto 或 bypass 模式之外的权限提示、计划批准或提问悬置十分钟后，Code Mode 停止脚本的问题">修复在 auto 或 bypass 模式之外的权限提示、计划批准或提问悬置十分钟后，Code Mode 停止脚本的问题</li>
-              <li data-text="修复 auto 和 bypass-permissions 模式下，Code Mode 脚本无法调用上一个脚本运行期间连接的 MCP 服务器的问题">修复 auto 和 bypass-permissions 模式下，Code Mode 脚本无法调用上一个脚本运行期间连接的 MCP 服务器的问题</li>
-              <li data-text="修复在 `claude --resume` 选择器中选中的会话里，auto 或 bypass permissions 模式下 Code Mode 脚本不在后台运行的问题">修复在 <code>claude --resume</code> 选择器中选中的会话里，auto 或 bypass permissions 模式下 Code Mode 脚本不在后台运行的问题</li>
-              <li data-text="修复恢复一条回复运行了多个脚本的会话时，Code Mode 丢失已加载的 skill、钩子上下文或随权限批准输入的备注的问题">修复恢复一条回复运行了多个脚本的会话时，Code Mode 丢失已加载的 skill、钩子上下文或随权限批准输入的备注的问题</li>
-              <li data-text="修复从选择器恢复会话或处于需请求权限的模式时，Claude 未被告知 Code Mode 脚本被截断的问题">修复从选择器恢复会话或处于需请求权限的模式时，Claude 未被告知 Code Mode 脚本被截断的问题</li>
-              <li data-text="修复 Code Mode 对先前失败脚本从未赋值的顶层变量静默使用 `undefined` 的问题">修复 Code Mode 对先前失败脚本从未赋值的顶层变量静默使用 <code>undefined</code> 的问题</li>
-              <li data-text="修复失败的命令的长输出被截断时未告知 Code Mode 脚本的问题">修复失败的命令的长输出被截断时未告知 Code Mode 脚本的问题</li>
-              <li data-text="修复 Code Mode 拒绝以 `{` 代码块开头的有效脚本的问题">修复 Code Mode 拒绝以 <code>{</code> 代码块开头的有效脚本的问题</li>
-              <li data-text="修复 Code Mode 拒绝同时使用顶层 `await` 与顶层 `return` 的脚本的问题">修复 Code Mode 拒绝同时使用顶层 <code>await</code> 与顶层 <code>return</code> 的脚本的问题</li>
-              <li data-text="修复脚本读取或写入过某个被 @ 提及的小文件后，该文件未在 Code Mode 中附加的问题">修复脚本读取或写入过某个被 @ 提及的小文件后，该文件未在 Code Mode 中附加的问题</li>
+              <li data-text="修复输入 schema 无效的 MCP 工具导致第三方提供商上或关闭遥测/功能开关时请求失败的问题；现在会排除该工具并告知 Claude 原因">修复输入 schema 无效的 MCP 工具导致第三方提供商上或关闭遥测/功能开关时请求失败的问题；现在会排除该工具并告知 Claude 原因</li>
+              <li data-text="修复 Bedrock、Google Cloud 的 Agent Platform 或 Foundry 拒绝子代理进度摘要的 effort 设置后，该子代理模型的 effort 在会话中被关闭的问题（2.1.327 的回归）">修复 Bedrock、Google Cloud 的 Agent Platform 或 Foundry 拒绝子代理进度摘要的 effort 设置后，该子代理模型的 effort 在会话中被关闭的问题（2.1.327 的回归）</li>
+              <li data-text="修复 Code Mode 在 auto 或 bypass 模式之外的权限提示、计划审批或问题保持打开十分钟时停止脚本的问题">修复 Code Mode 在 auto 或 bypass 模式之外的权限提示、计划审批或问题保持打开十分钟时停止脚本的问题</li>
+              <li data-text="修复 Code Mode 脚本在 auto 和 bypass-permissions 模式下，无法调用上一个脚本运行期间已连接的 MCP 服务器的问题">修复 Code Mode 脚本在 auto 和 bypass-permissions 模式下，无法调用上一个脚本运行期间已连接的 MCP 服务器的问题</li>
+              <li data-text="修复 Code Mode 脚本在通过 `claude --resume` 选择器选中的会话中，于 auto 或 bypass permissions 模式下无法后台运行的问题">修复 Code Mode 脚本在通过 <code>claude --resume</code> 选择器选中的会话中，于 auto 或 bypass permissions 模式下无法后台运行的问题</li>
+              <li data-text="修复 Code Mode 在恢复某条回复运行了多个脚本的会话时，丢失已加载的技能、hook 上下文或随权限批准输入的备注的问题">修复 Code Mode 在恢复某条回复运行了多个脚本的会话时，丢失已加载的技能、hook 上下文或随权限批准输入的备注的问题</li>
+              <li data-text="修复通过选择器恢复会话或处于需权限确认的模式时，Claude 未被告知 Code Mode 脚本被中断的问题">修复通过选择器恢复会话或处于需权限确认的模式时，Claude 未被告知 Code Mode 脚本被中断的问题</li>
+              <li data-text="修复 Code Mode 对先前失败脚本从未设置的顶层变量静默使用 `undefined` 的问题">修复 Code Mode 对先前失败脚本从未设置的顶层变量静默使用 <code>undefined</code> 的问题</li>
+              <li data-text="修复 Code Mode 脚本在失败命令的长输出被截断时未收到通知的问题">修复 Code Mode 脚本在失败命令的长输出被截断时未收到通知的问题</li>
+              <li data-text="修复 Code Mode 拒绝以 `{` 块开头的有效脚本的问题">修复 Code Mode 拒绝以 <code>{</code> 块开头的有效脚本的问题</li>
+              <li data-text="修复 Code Mode 拒绝同时使用顶层 `await` 和顶层 `return` 的脚本的问题">修复 Code Mode 拒绝同时使用顶层 <code>await</code> 和顶层 <code>return</code> 的脚本的问题</li>
+              <li data-text="修复 Code Mode 中 @ 提及的小文件在已被脚本读取或写入后未附加的问题">修复 Code Mode 中 @ 提及的小文件在已被脚本读取或写入后未附加的问题</li>
               <li data-text="修复 Code Mode 向无法调用 `write()` 和 `edit()` 的只读子代理提供这两个函数的问题">修复 Code Mode 向无法调用 <code>write()</code> 和 <code>edit()</code> 的只读子代理提供这两个函数的问题</li>
-              <li data-text="修复 Code Mode 中按下 Esc 后紧跟 `/model` 等命令时，Claude 自行开始新一轮的问题">修复 Code Mode 中按下 Esc 后紧跟 <code>/model</code> 等命令时，Claude 自行开始新一轮的问题</li>
-              <li data-text="修复 Code Mode 中的 Claude 未被告知仅在你要求时才运行工作流、也未获知你在 `/config` 中设置的工作流大小的问题">修复 Code Mode 中的 Claude 未被告知仅在你要求时才运行工作流、也未获知你在 <code>/config</code> 中设置的工作流大小的问题</li>
-              <li data-text="修复 Remote Control 重复显示同一断开连接消息、并提示重试无法重连的会话的问题">修复 Remote Control 重复显示同一断开连接消息、并提示重试无法重连的会话的问题</li>
-              <li data-text="修复服务响应缓慢导致远程会话重启时，等待中的权限提示丢失且其回答被忽略的问题">修复服务响应缓慢导致远程会话重启时，等待中的权限提示丢失且其回答被忽略的问题</li>
-              <li data-text="修复云端会话在 rewind 后接 `/clear` 仍恢复已清空对话的问题">修复云端会话在 rewind 后接 <code>/clear</code> 仍恢复已清空对话的问题</li>
-              <li data-text="修复模型流中断重试后 runner 或 worker 丢失时，远程会话丢失该轮工具调用及结果的问题">修复模型流中断重试后 runner 或 worker 丢失时，远程会话丢失该轮工具调用及结果的问题</li>
-              <li data-text="修复刚启动或标题含 @ 的云端及 Remote Control 会话，无法被开启 Remote Control 的会话通过跨会话消息访问的问题">修复刚启动或标题含 @ 的云端及 Remote Control 会话，无法被开启 Remote Control 的会话通过跨会话消息访问的问题</li>
-              <li data-text="修复 Claude 被告知云端会话永远无法回复的问题；现在它会知道回复何时可能到来，以及获取结果的其他方式">修复 Claude 被告知云端会话永远无法回复的问题；现在它会知道回复何时可能到来，以及获取结果的其他方式</li>
-              <li data-text="修复命令移入另一仓库后，`/diff`、Remote Control 会话的 Changes 面板及编辑旁的 diff 遗漏已提交工作的问题">修复命令移入另一仓库后，<code>/diff</code>、Remote Control 会话的 Changes 面板及编辑旁的 diff 遗漏已提交工作的问题</li>
-              <li data-text="修复了当工作流最后一次取得进展已超过一小时后才打开由 IDE 扩展或其他 SDK 应用运行的会话时，Remote Control 不显示该运行中工作流的代理的问题。">修复了当工作流最后一次取得进展已超过一小时后才打开由 IDE 扩展或其他 SDK 应用运行的会话时，Remote Control 不显示该运行中工作流的代理的问题。</li>
-              <li data-text="Remote Control：修复了开启 Remote Control 后，空闲的 Desktop 或 VS Code 会话显示为运行中的问题。">Remote Control：修复了开启 Remote Control 后，空闲的 Desktop 或 VS Code 会话显示为运行中的问题。</li>
-              <li data-text="修复了 SDK 中断已停止后台代理后，模型仍声称它们在运行的问题。">修复了 SDK 中断已停止后台代理后，模型仍声称它们在运行的问题。</li>
-              <li data-text="修复了桌面应用和 SDK 宿主中的 Send now 在网页搜索已被停止时，向 Claude 报告搜索没有结果的问题。">修复了桌面应用和 SDK 宿主中的 Send now 在网页搜索已被停止时，向 Claude 报告搜索没有结果的问题。</li>
-              <li data-text="修复了在能上报 Cmd 键的终端中，Cmd+字母组合被输入到提示框的问题。">修复了在能上报 Cmd 键的终端中，Cmd+字母组合被输入到提示框的问题。</li>
-              <li data-text="修复了全屏模式下，GNOME Terminal 中 Ctrl+click 会打开链接两次、鼠标侧键被当作点击、以及停顿后首次向另一方向滚动滚轮被忽略的问题。">修复了全屏模式下，GNOME Terminal 中 Ctrl+click 会打开链接两次、鼠标侧键被当作点击、以及停顿后首次向另一方向滚动滚轮被忽略的问题。</li>
-              <li data-text="修复了 Konsole 中在 tmux 和 ssh 之外 Shift+Enter 失效，以及支持 kitty 键盘协议的终端中非拉丁键盘布局下 Alt 快捷键失效的问题。">修复了 Konsole 中在 tmux 和 ssh 之外 Shift+Enter 失效，以及支持 kitty 键盘协议的终端中非拉丁键盘布局下 Alt 快捷键失效的问题。</li>
-              <li data-text="Linux：修复了已安装 `xclip` 或 `wl-copy` 时，Claude Code 被 Ctrl+Z 挂起后，在其他应用中粘贴会卡死的问题。">Linux：修复了已安装 <code>xclip</code> 或 <code>wl-copy</code> 时，Claude Code 被 Ctrl+Z 挂起后，在其他应用中粘贴会卡死的问题。</li>
-              <li data-text="Linux：修复了 Ctrl+V 检测不到剪贴板图片、粘贴到旧图片或卡住的问题。">Linux：修复了 Ctrl+V 检测不到剪贴板图片、粘贴到旧图片或卡住的问题。</li>
-              <li data-text="修复了全屏模式下复制文本时包含引用竖条、拖拽向上滚动时换行处丢失空格、以及“Jump to bottom”悬浮标签下方文字缺失的问题。">修复了全屏模式下复制文本时包含引用竖条、拖拽向上滚动时换行处丢失空格、以及“Jump to bottom”悬浮标签下方文字缺失的问题。</li>
-              <li data-text="修复了粘贴到 `!` 命令中的图片路径被误变为附件的问题。">修复了粘贴到 <code>!</code> 命令中的图片路径被误变为附件的问题。</li>
-              <li data-text="修复了在 `?` 快捷键列表打开时，Ctrl+C 不显示退出警告的问题。">修复了在 <code>?</code> 快捷键列表打开时，Ctrl+C 不显示退出警告的问题。</li>
-              <li data-text="修复了按键同时到达时，全屏模式下的 Ctrl+R 搜索和 `/theme` 颜色编辑器选中错误行，以及这些位置和 `/config`、`/plugin` 的搜索中按键被丢弃的问题。">修复了按键同时到达时，全屏模式下的 Ctrl+R 搜索和 <code>/theme</code> 颜色编辑器选中错误行，以及这些位置和 <code>/config</code>、<code>/plugin</code> 的搜索中按键被丢弃的问题。</li>
-              <li data-text="修复了 GNU screen 内颜色错误或缺失的问题。">修复了 GNU screen 内颜色错误或缺失的问题。</li>
-              <li data-text="修复了全屏模式下，大量后台通知会压住已打开对话框顶部边框的问题。">修复了全屏模式下，大量后台通知会压住已打开对话框顶部边框的问题。</li>
-              <li data-text="修复了发给后台代理的消息中，粘贴的图片显示为一长串文件路径的问题。">修复了发给后台代理的消息中，粘贴的图片显示为一长串文件路径的问题。</li>
-              <li data-text="修复了当 `/goal` 与 skill 的 Stop hook 文案相同时，`/goal` 会移除该 skill 的 Stop hook，或因另一 hook 的结果而提前结束的问题。">修复了当 <code>/goal</code> 与 skill 的 Stop hook 文案相同时，<code>/goal</code> 会移除该 skill 的 Stop hook，或因另一 hook 的结果而提前结束的问题。</li>
-              <li data-text="修复了 `/bug` 在报告发送后仍显示已取消的问题。">修复了 <code>/bug</code> 在报告发送后仍显示已取消的问题。</li>
-              <li data-text="修复了 Pro 和 Max 用户按 Esc 无法关闭对话记录分享询问的问题。">修复了 Pro 和 Max 用户按 Esc 无法关闭对话记录分享询问的问题。</li>
-              <li data-text="修复了 `/hooks` 返回上一级时丢失浏览位置的问题。">修复了 <code>/hooks</code> 返回上一级时丢失浏览位置的问题。</li>
-              <li data-text="修复了 `/export` 在文件名为空时生成名为 `.txt` 的文件的问题。">修复了 <code>/export</code> 在文件名为空时生成名为 <code>.txt</code> 的文件的问题。</li>
-              <li data-text="修复了在 Zed 中 `/terminal-setup` 会把符号链接的 `keymap.json` 替换为普通文件的问题。">修复了在 Zed 中 <code>/terminal-setup</code> 会把符号链接的 <code>keymap.json</code> 替换为普通文件的问题。</li>
-              <li data-text="修复了 `/install-github-app` 在被要求更新现有工作流文件时却新增 code review 工作流的问题。">修复了 <code>/install-github-app</code> 在被要求更新现有工作流文件时却新增 code review 工作流的问题。</li>
-              <li data-text="修复了返回之后，之前缓慢的保存或移除操作完成时，`/plugin` 会重新打开 skill 或关闭已打开页面的问题。">修复了返回之后，之前缓慢的保存或移除操作完成时，<code>/plugin</code> 会重新打开 skill 或关闭已打开页面的问题。</li>
-              <li data-text="修复了在变更仍在进行时离开某个插件后，`/plugin` 询问卸载错误的插件或忽略 Esc 的问题。">修复了在变更仍在进行时离开某个插件后，<code>/plugin</code> 询问卸载错误的插件或忽略 Esc 的问题。</li>
-              <li data-text="修复了在搜索无结果或点击标签行后，`/plugin` 的 Installed 标签页中打字和方向键失灵的问题。">修复了在搜索无结果或点击标签行后，<code>/plugin</code> 的 Installed 标签页中打字和方向键失灵的问题。</li>
-              <li data-text="修复了在 `/plugin` 中长按 Enter 会关闭多个已安装插件的问题。">修复了在 <code>/plugin</code> 中长按 Enter 会关闭多个已安装插件的问题。</li>
-              <li data-text="修复了在 1M 上下文模型上 `/usage` 的插件用量总计停在 2,000 tokens，以及未选择模型时 `/usage` 和 `/plugin` 中 token 估算偏低的问题。">修复了在 1M 上下文模型上 <code>/usage</code> 的插件用量总计停在 2,000 tokens，以及未选择模型时 <code>/usage</code> 和 <code>/plugin</code> 中 token 估算偏低的问题。</li>
-              <li data-text="修复了在 Bedrock 访问密钥步骤中按 Esc 会直接关闭 `/login` 而非返回上一步的问题。">修复了在 Bedrock 访问密钥步骤中按 Esc 会直接关闭 <code>/login</code> 而非返回上一步的问题。</li>
-              <li data-text="修复了 `/exit` 与 Ctrl+D 对运行中任务的描述不一致，以及 `/exit` 对已停止的工作流仍发出警告的问题。">修复了 <code>/exit</code> 与 Ctrl+D 对运行中任务的描述不一致，以及 <code>/exit</code> 对已停止的工作流仍发出警告的问题。</li>
-              <li data-text="修复了 Claude 在读取共享文件夹中的 artifact 或发布到其他组织的文件夹后，将其称为私有 artifact，以及声称只有被指名的人才能打开 artifact、但实际该文件夹成员也可以打开的问题。">修复了 Claude 在读取共享文件夹中的 artifact 或发布到其他组织的文件夹后，将其称为私有 artifact，以及声称只有被指名的人才能打开 artifact、但实际该文件夹成员也可以打开的问题。</li>
-              <li data-text="修复了某个插件的 toast 有时显示其他插件文本的问题。">修复了某个插件的 toast 有时显示其他插件文本的问题。</li>
-              <li data-text="修复了在一轮对话刚开始后保存的 mod，有时会在该轮中途而非结束时重新加载的问题。">修复了在一轮对话刚开始后保存的 mod，有时会在该轮中途而非结束时重新加载的问题。</li>
-              <li data-text="修复了一个格式错误的 `OTEL_RESOURCE_ATTRIBUTES` 条目导致该变量的其他标签从 metric 数据点、事件和 span 中丢失的问题；现在仅会忽略该条目。">修复了一个格式错误的 <code>OTEL_RESOURCE_ATTRIBUTES</code> 条目导致该变量的其他标签从 metric 数据点、事件和 span 中丢失的问题；现在仅会忽略该条目。</li>
-              <li data-text="修复了在请求因过大被拒绝后进行压缩时，agent hook 超过超时时间仍继续运行的问题。">修复了在请求因过大被拒绝后进行压缩时，agent hook 超过超时时间仍继续运行的问题。</li>
-              <li data-text="修复了 `FORCE_COLOR` 被设为负数时启动即崩溃的问题。">修复了 <code>FORCE_COLOR</code> 被设为负数时启动即崩溃的问题。</li>
-              <li data-text="修复了机器内存几乎耗尽时密钥掩码处理崩溃的问题。">修复了机器内存几乎耗尽时密钥掩码处理崩溃的问题。</li>
-              <li data-text="修复了 Linux 上当分支名不是有效 UTF-8 时，Bash 沙盒在每条命令后都会重命名 `.git/HEAD` 的问题。">修复了 Linux 上当分支名不是有效 UTF-8 时，Bash 沙盒在每条命令后都会重命名 <code>.git/HEAD</code> 的问题。</li>
-              <li data-text="Self-hosted runner：修复了代理或网络过滤器以 HTTP 200 和 `{}` 之类的响应体应答轮询时，所有运行中的会话被停止的问题；现在 runner 会对此类轮询进行重试。">Self-hosted runner：修复了代理或网络过滤器以 HTTP 200 和 <code>{}</code> 之类的响应体应答轮询时，所有运行中的会话被停止的问题；现在 runner 会对此类轮询进行重试。</li>
-              <li data-text="Self-hosted runner：修复了临时磁盘错误后，保留克隆中的 objects 或 refs 以及仅存在于其中的提交被删除的问题；现在此类启动会直接失败。">Self-hosted runner：修复了临时磁盘错误后，保留克隆中的 objects 或 refs 以及仅存在于其中的提交被删除的问题；现在此类启动会直接失败。</li>
-              <li data-text="修复了在时钟偏慢或被往回调的主机上，token 耗尽后 self-hosted runner 停止运行的问题。">修复了在时钟偏慢或被往回调的主机上，token 耗尽后 self-hosted runner 停止运行的问题。</li>
-              <li data-text="Self-hosted runner：修复了使用 Anthropic-managed git 的会话在会话内的脚本或 hook 再次运行 `claude` 后，失去对 GitHub 的 git 访问权限的问题。">Self-hosted runner：修复了使用 Anthropic-managed git 的会话在会话内的脚本或 hook 再次运行 <code>claude</code> 后，失去对 GitHub 的 git 访问权限的问题。</li>
-              <li data-text="修复了在机器的 git config 设置了 `http.proactiveAuth` 时，使用 Anthropic-managed git 的 self-hosted runner 无法 fetch 或 push 的问题。">修复了在机器的 git config 设置了 <code>http.proactiveAuth</code> 时，使用 Anthropic-managed git 的 self-hosted runner 无法 fetch 或 push 的问题。</li>
-              <li data-text="Self-hosted runner：修复了 runner 在注册后初始化失败时未通知服务器便直接退出的问题；现在它会附原因注销，按需 runner 也会上报启动失败。">Self-hosted runner：修复了 runner 在注册后初始化失败时未通知服务器便直接退出的问题；现在它会附原因注销，按需 runner 也会上报启动失败。</li>
-              <li data-text="Self-hosted runner：修复了会话在等待另一会话准备同一仓库（`--capacity` 大于 1）时，归档或重新排队操作不生效的问题。">Self-hosted runner：修复了会话在等待另一会话准备同一仓库（<code>--capacity</code> 大于 1）时，归档或重新排队操作不生效的问题。</li>
-              <li data-text="Self-hosted runner：修复了 `.claude.json` 损坏的会话在 `--trust-workspace false` 下此后每次启动都失败的问题；现在它会以默认配置启动，并重新开启此前在该处关闭的 MCP 服务器。">Self-hosted runner：修复了 <code>.claude.json</code> 损坏的会话在 <code>--trust-workspace false</code> 下此后每次启动都失败的问题；现在它会以默认配置启动，并重新开启此前在该处关闭的 MCP 服务器。</li>
-              <li data-text="Self-hosted runner：修复了当 checkout hook 或 git 输出大量内容时，启动失败的消息丢失说明失败原因文字的问题。">Self-hosted runner：修复了当 checkout hook 或 git 输出大量内容时，启动失败的消息丢失说明失败原因文字的问题。</li>
-              <li data-text="修复了磁盘短暂卡顿数秒时 self-hosted runner 跳过会话后置 hook 的问题；在磁盘完全无响应时，会话结束默认可能多耗时 25 秒。">修复了磁盘短暂卡顿数秒时 self-hosted runner 跳过会话后置 hook 的问题；在磁盘完全无响应时，会话结束默认可能多耗时 25 秒。</li>
-              <li data-text="修复了 self-hosted runner 的一个问题：在新 Claude 配置目录中恢复的会话不再丢失其任务列表。">修复了 self-hosted runner 的一个问题：在新 Claude 配置目录中恢复的会话不再丢失其任务列表。</li>
-              <li data-text="修复了 self-hosted 会话在缺少其某个仓库的情况下启动时，Claude 未被告知此事及原因的问题。">修复了 self-hosted 会话在缺少其某个仓库的情况下启动时，Claude 未被告知此事及原因的问题。</li>
-              <li data-text="自托管 runner：修复了 `claude --environment` 的 `--correlation-id` 未能传递到 `spawn-runner` hook 的问题">自托管 runner：修复了 <code>claude --environment</code> 的 <code>--correlation-id</code> 未能传递到 <code>spawn-runner</code> hook 的问题</li>
-              <li data-text="修复了自托管 runner 设置向导中关于密钥轮换的提示，现在会警告吊销密钥将终止在其下运行的会话">修复了自托管 runner 设置向导中关于密钥轮换的提示，现在会警告吊销密钥将终止在其下运行的会话</li>
-              <li data-text="[VSCode] 修复了面板高度不足或命令、URL、描述过长时，权限提示框的 No 按钮、回复输入框或标题被截断的问题">[VSCode] 修复了面板高度不足或命令、URL、描述过长时，权限提示框的 No 按钮、回复输入框或标题被截断的问题</li>
-              <li data-text="[VSCode] 修复了失败或被阻止的工具调用不显示原因或原因被截断，以及 Glob 和 Grep 将错误计为结果的问题">[VSCode] 修复了失败或被阻止的工具调用不显示原因或原因被截断，以及 Glob 和 Grep 将错误计为结果的问题</li>
+              <li data-text="修复 Code Mode 中 Esc 后紧跟 `/model` 等命令时 Claude 自行开始新一轮对话的问题">修复 Code Mode 中 Esc 后紧跟 <code>/model</code> 等命令时 Claude 自行开始新一轮对话的问题</li>
+              <li data-text="修复 Code Mode 中 Claude 未被要求仅在你主动请求时才运行工作流，或未遵循你在 `/config` 中设置的工作流大小的问题">修复 Code Mode 中 Claude 未被要求仅在你主动请求时才运行工作流，或未遵循你在 <code>/config</code> 中设置的工作流大小的问题</li>
+              <li data-text="修复 Remote Control 重复显示同一条断开消息，并提示重试无法重连的会话的问题">修复 Remote Control 重复显示同一条断开消息，并提示重试无法重连的会话的问题</li>
+              <li data-text="修复远程会话在服务缓慢期间重启时，等待中的权限提示丢失且其应答被忽略的问题">修复远程会话在服务缓慢期间重启时，等待中的权限提示丢失且其应答被忽略的问题</li>
+              <li data-text="修复云端会话在回退（rewind）后执行 `/clear` 时恢复已被清空的对话的问题">修复云端会话在回退（rewind）后执行 <code>/clear</code> 时恢复已被清空的对话的问题</li>
+              <li data-text="修复远程会话在模型流断开重试后丢失 runner 或 worker 时，丢失该轮工具调用及结果的问题">修复远程会话在模型流断开重试后丢失 runner 或 worker 时，丢失该轮工具调用及结果的问题</li>
+              <li data-text="修复刚启动或标题中包含 @ 的云端和 Remote Control 会话，在开启 Remote Control 的会话中通过跨会话消息无法访问的问题">修复刚启动或标题中包含 @ 的云端和 Remote Control 会话，在开启 Remote Control 的会话中通过跨会话消息无法访问的问题</li>
+              <li data-text="修复 Claude 被告知云端会话永远无法回复的问题；现在它会得知何时可以收到回复以及获取结果的其他方式">修复 Claude 被告知云端会话永远无法回复的问题；现在它会得知何时可以收到回复以及获取结果的其他方式</li>
+              <li data-text="修复 `/diff`、Remote Control 会话的 Changes 面板以及编辑旁的 diff 在命令切换到另一仓库后遗漏已提交工作的问题">修复 <code>/diff</code>、Remote Control 会话的 Changes 面板以及编辑旁的 diff 在命令切换到另一仓库后遗漏已提交工作的问题</li>
+              <li data-text="修复了以下问题：当 IDE 扩展或其他 SDK 应用打开的会话在工作流最后一次进展后超过一小时才被打开时，Remote Control 不显示该正在运行的工作流的 agents">修复了以下问题：当 IDE 扩展或其他 SDK 应用打开的会话在工作流最后一次进展后超过一小时才被打开时，Remote Control 不显示该正在运行的工作流的 agents</li>
+              <li data-text="Remote Control：修复了空闲的 Desktop 或 VS Code 会话在 Remote Control 开启后显示为运行中的问题">Remote Control：修复了空闲的 Desktop 或 VS Code 会话在 Remote Control 开启后显示为运行中的问题</li>
+              <li data-text="修复了 SDK 中断已停止后台 agents 后，模型仍声称它们在运行的问题">修复了 SDK 中断已停止后台 agents 后，模型仍声称它们在运行的问题</li>
+              <li data-text="修复了桌面应用和 SDK 宿主中的 Send now 会告知 Claude 一个已停止的网页搜索没有结果的问题">修复了桌面应用和 SDK 宿主中的 Send now 会告知 Claude 一个已停止的网页搜索没有结果的问题</li>
+              <li data-text="修复了在报告 Cmd 键的终端中 Cmd+字母被输入到提示框的问题">修复了在报告 Cmd 键的终端中 Cmd+字母被输入到提示框的问题</li>
+              <li data-text="修复了全屏模式下 GNOME Terminal 中 Ctrl+click 打开链接两次、侧键鼠标按钮被当作点击、以及暂停后第一次反向滚动滚轮被忽略的问题">修复了全屏模式下 GNOME Terminal 中 Ctrl+click 打开链接两次、侧键鼠标按钮被当作点击、以及暂停后第一次反向滚动滚轮被忽略的问题</li>
+              <li data-text="修复了 Konsole 中（非 tmux 和 ssh 环境下）Shift+Enter 的问题，以及支持 kitty keyboard protocol 的终端中非拉丁键盘布局下 Alt 快捷键的问题">修复了 Konsole 中（非 tmux 和 ssh 环境下）Shift+Enter 的问题，以及支持 kitty keyboard protocol 的终端中非拉丁键盘布局下 Alt 快捷键的问题</li>
+              <li data-text="Linux：修复了当已安装 `xclip` 或 `wl-copy` 时，使用 Ctrl+Z 挂起 Claude Code 会导致在其他应用中粘贴卡住的问题">Linux：修复了当已安装 <code>xclip</code> 或 <code>wl-copy</code> 时，使用 Ctrl+Z 挂起 Claude Code 会导致在其他应用中粘贴卡住的问题</li>
+              <li data-text="Linux：修复了 Ctrl+V 丢失剪贴板图片、粘贴旧图片或挂起的问题">Linux：修复了 Ctrl+V 丢失剪贴板图片、粘贴旧图片或挂起的问题</li>
+              <li data-text="修复了全屏模式下复制的文本包含引用条、拖拽向上滚动时换行处丢失空格、或 &quot;Jump to bottom&quot; 提示条下文字缺失的问题">修复了全屏模式下复制的文本包含引用条、拖拽向上滚动时换行处丢失空格、或 &quot;Jump to bottom&quot; 提示条下文字缺失的问题</li>
+              <li data-text="修复了粘贴到 `!` 命令中的图片路径被变成附件的问题">修复了粘贴到 <code>!</code> 命令中的图片路径被变成附件的问题</li>
+              <li data-text="修复了 `?` 快捷键列表打开时 Ctrl+C 不显示退出警告的问题">修复了 <code>?</code> 快捷键列表打开时 Ctrl+C 不显示退出警告的问题</li>
+              <li data-text="修复了全屏模式下的 Ctrl+R 搜索和 `/theme` 颜色编辑器在按键同时到达时选中错误行的问题，以及这些位置和 `/config`、`/plugin` 搜索中丢键的问题">修复了全屏模式下的 Ctrl+R 搜索和 <code>/theme</code> 颜色编辑器在按键同时到达时选中错误行的问题，以及这些位置和 <code>/config</code>、<code>/plugin</code> 搜索中丢键的问题</li>
+              <li data-text="修复了 GNU screen 内颜色错误或缺失的问题">修复了 GNU screen 内颜色错误或缺失的问题</li>
+              <li data-text="修复了全屏模式下大量后台通知遮挡打开的对话框顶部边框的问题">修复了全屏模式下大量后台通知遮挡打开的对话框顶部边框的问题</li>
+              <li data-text="修复了发送给后台 agent 的消息中用长文件路径代替粘贴图片的问题">修复了发送给后台 agent 的消息中用长文件路径代替粘贴图片的问题</li>
+              <li data-text="修复了 `/goal` 在与另一个 hook 措辞相同时移除技能的 Stop hook 或因另一个 hook 的结果提前结束的问题">修复了 <code>/goal</code> 在与另一个 hook 措辞相同时移除技能的 Stop hook 或因另一个 hook 的结果提前结束的问题</li>
+              <li data-text="修复了 `/bug` 在报告发送完成后仍显示已取消的问题">修复了 <code>/bug</code> 在报告发送完成后仍显示已取消的问题</li>
+              <li data-text="修复了 Pro 和 Max 用户按 Esc 无法关闭对话记录分享询问的问题">修复了 Pro 和 Max 用户按 Esc 无法关闭对话记录分享询问的问题</li>
+              <li data-text="修复了 `/hooks` 返回时丢失当前位置的问题">修复了 <code>/hooks</code> 返回时丢失当前位置的问题</li>
+              <li data-text="修复了 `/export` 在名称为空时写出名为 `.txt` 的文件的问题">修复了 <code>/export</code> 在名称为空时写出名为 <code>.txt</code> 的文件的问题</li>
+              <li data-text="修复了 `/terminal-setup` 在 Zed 中将符号链接的 `keymap.json` 替换为普通文件的问题">修复了 <code>/terminal-setup</code> 在 Zed 中将符号链接的 <code>keymap.json</code> 替换为普通文件的问题</li>
+              <li data-text="修复了 `/install-github-app` 在被要求更新现有工作流文件时反而添加代码审查工作流的问题">修复了 <code>/install-github-app</code> 在被要求更新现有工作流文件时反而添加代码审查工作流的问题</li>
+              <li data-text="修复了 `/plugin` 在缓慢的保存或移除操作于你返回之后才完成时重新打开技能或关闭已打开页面的问题">修复了 <code>/plugin</code> 在缓慢的保存或移除操作于你返回之后才完成时重新打开技能或关闭已打开页面的问题</li>
+              <li data-text="修复了 `/plugin` 在变更仍在进行时离开某个插件后，询问卸载错误的插件或忽略 Esc 的问题">修复了 <code>/plugin</code> 在变更仍在进行时离开某个插件后，询问卸载错误的插件或忽略 Esc 的问题</li>
+              <li data-text="修复了 `/plugin` Installed 标签页在无结果搜索或点击标签行后无法使用输入和方向键的问题">修复了 <code>/plugin</code> Installed 标签页在无结果搜索或点击标签行后无法使用输入和方向键的问题</li>
+              <li data-text="修复了在 `/plugin` 中按住 Enter 会关闭多个已安装插件的问题">修复了在 <code>/plugin</code> 中按住 Enter 会关闭多个已安装插件的问题</li>
+              <li data-text="修复了 `/usage` 插件总量在 1M 上下文模型上停在 2,000 tokens 的问题，以及未选择模型时 `/usage` 和 `/plugin` 中 token 估算偏低的问题">修复了 <code>/usage</code> 插件总量在 1M 上下文模型上停在 2,000 tokens 的问题，以及未选择模型时 <code>/usage</code> 和 <code>/plugin</code> 中 token 估算偏低的问题</li>
+              <li data-text="修复了在 Bedrock access keys 步骤按 Esc 直接关闭 `/login` 而不是返回上一页的问题">修复了在 Bedrock access keys 步骤按 Esc 直接关闭 <code>/login</code> 而不是返回上一页的问题</li>
+              <li data-text="修复了 `/exit` 和 Ctrl+D 对运行中工作的描述不一致、以及 `/exit` 对已停止的工作流发出警告的问题">修复了 <code>/exit</code> 和 Ctrl+D 对运行中工作的描述不一致、以及 <code>/exit</code> 对已停止的工作流发出警告的问题</li>
+              <li data-text="修复了 Claude 在读取共享文件夹中的 artifact 或发布到其他组织的文件夹后称其为私有、以及在文件夹成员可以打开时称只有指定人员才能打开的问题">修复了 Claude 在读取共享文件夹中的 artifact 或发布到其他组织的文件夹后称其为私有、以及在文件夹成员可以打开时称只有指定人员才能打开的问题</li>
+              <li data-text="修复了某个插件的 toast 有时显示另一个插件文本的问题">修复了某个插件的 toast 有时显示另一个插件文本的问题</li>
+              <li data-text="修复了在某一轮刚开始时保存的 mod 有时会在该轮中途而非结束时重载的问题">修复了在某一轮刚开始时保存的 mod 有时会在该轮中途而非结束时重载的问题</li>
+              <li data-text="修复了 `OTEL_RESOURCE_ATTRIBUTES` 中一个格式错误的条目导致该变量的其他标签从 metric 点位、事件和 span 中丢失的问题，现在只会忽略该条目本身">修复了 <code>OTEL_RESOURCE_ATTRIBUTES</code> 中一个格式错误的条目导致该变量的其他标签从 metric 点位、事件和 span 中丢失的问题，现在只会忽略该条目本身</li>
+              <li data-text="修复了请求因过大被拒绝后压缩时 agent hooks 超过其超时时间仍继续运行的问题">修复了请求因过大被拒绝后压缩时 agent hooks 超过其超时时间仍继续运行的问题</li>
+              <li data-text="修复了 `FORCE_COLOR` 设为负数时启动崩溃的问题">修复了 <code>FORCE_COLOR</code> 设为负数时启动崩溃的问题</li>
+              <li data-text="修复了内存几乎耗尽时 secret 脱敏处理崩溃的问题">修复了内存几乎耗尽时 secret 脱敏处理崩溃的问题</li>
+              <li data-text="修复了 Linux 上 Bash 沙盒在分支名不是有效 UTF-8 时每条命令后都重命名 `.git/HEAD` 的问题">修复了 Linux 上 Bash 沙盒在分支名不是有效 UTF-8 时每条命令后都重命名 <code>.git/HEAD</code> 的问题</li>
+              <li data-text="自托管 runner：修复了代理或网页过滤器以 HTTP 200 和 `{}` 之类的正文响应轮询时所有运行中会话被停止的问题；runner 现在会重试此类轮询">自托管 runner：修复了代理或网页过滤器以 HTTP 200 和 <code>{}</code> 之类的正文响应轮询时所有运行中会话被停止的问题；runner 现在会重试此类轮询</li>
+              <li data-text="自托管 runner：修复了临时磁盘错误后保留克隆的对象或 refs、以及仅存在于其中的提交被删除的问题；该启动现在会直接失败">自托管 runner：修复了临时磁盘错误后保留克隆的对象或 refs、以及仅存在于其中的提交被删除的问题；该启动现在会直接失败</li>
+              <li data-text="修复了自托管 runner 在时钟较慢或被回调的主机上 token 过期后停止的问题">修复了自托管 runner 在时钟较慢或被回调的主机上 token 过期后停止的问题</li>
+              <li data-text="自托管 runner：修复了会话中某个脚本或 hook 再次运行 `claude` 后，使用 Anthropic-managed git 的会话失去对 GitHub 的 git 访问的问题">自托管 runner：修复了会话中某个脚本或 hook 再次运行 <code>claude</code> 后，使用 Anthropic-managed git 的会话失去对 GitHub 的 git 访问的问题</li>
+              <li data-text="修复了机器的 git config 设置了 `http.proactiveAuth` 时，使用 Anthropic-managed git 的自托管 runner 无法 fetch 或 push 的问题">修复了机器的 git config 设置了 <code>http.proactiveAuth</code> 时，使用 Anthropic-managed git 的自托管 runner 无法 fetch 或 push 的问题</li>
+              <li data-text="自托管 runner：修复了注册后初始化失败时 runner 直接退出而不告知服务器的问题；现在会带原因注销，按需 runner 会报告失败的启动">自托管 runner：修复了注册后初始化失败时 runner 直接退出而不告知服务器的问题；现在会带原因注销，按需 runner 会报告失败的启动</li>
+              <li data-text="自托管 runner：修复了会话在等待另一个会话准备同一仓库（`--capacity` 大于 1）期间归档或重新排队不生效的问题">自托管 runner：修复了会话在等待另一个会话准备同一仓库（<code>--capacity</code> 大于 1）期间归档或重新排队不生效的问题</li>
+              <li data-text="自托管 runner：修复了携带损坏的 `.claude.json` 的会话在 `--trust-workspace false` 下此后每次启动都失败的问题；现在会以默认值启动，并重新开启此前在那里被关闭的 MCP 服务器">自托管 runner：修复了携带损坏的 <code>.claude.json</code> 的会话在 <code>--trust-workspace false</code> 下此后每次启动都失败的问题；现在会以默认值启动，并重新开启此前在那里被关闭的 MCP 服务器</li>
+              <li data-text="自托管 runner：修复了 checkout hook 或 git 输出大量内容时失败启动的消息丢失说明失败原因的文字的问题">自托管 runner：修复了 checkout hook 或 git 输出大量内容时失败启动的消息丢失说明失败原因的文字的问题</li>
+              <li data-text="修复了磁盘停滞数秒时自托管 runner 跳过其会话后 hook 的问题；在完全死掉的磁盘上，会话结束默认可能多花 25 秒">修复了磁盘停滞数秒时自托管 runner 跳过其会话后 hook 的问题；在完全死掉的磁盘上，会话结束默认可能多花 25 秒</li>
+              <li data-text="修复了自托管 runner：在新 Claude 配置目录中恢复的会话不再丢失其任务列表">修复了自托管 runner：在新 Claude 配置目录中恢复的会话不再丢失其任务列表</li>
+              <li data-text="修复了自托管会话在缺少其某个仓库的情况下启动时 Claude 未被告知及原因的问题">修复了自托管会话在缺少其某个仓库的情况下启动时 Claude 未被告知及原因的问题</li>
+              <li data-text="Self-hosted runner：修复 `claude --environment` 的 `--correlation-id` 未传递到 `spawn-runner` hook 的问题">Self-hosted runner：修复 <code>claude --environment</code> 的 <code>--correlation-id</code> 未传递到 <code>spawn-runner</code> hook 的问题</li>
+              <li data-text="修复 self-hosted runner 设置向导中关于密钥轮换的提示，现在会警告撤销密钥将停止其下正在运行的会话">修复 self-hosted runner 设置向导中关于密钥轮换的提示，现在会警告撤销密钥将停止其下正在运行的会话</li>
+              <li data-text="[VSCode] 修复权限提示在面板较低或命令、URL、描述过长时 No 按钮、回复框或标题被截断的问题">[VSCode] 修复权限提示在面板较低或命令、URL、描述过长时 No 按钮、回复框或标题被截断的问题</li>
+              <li data-text="[VSCode] 修复失败或被拦截的工具调用不显示原因或原因被截断的问题，以及 Glob 和 Grep 将错误计入结果的问题">[VSCode] 修复失败或被拦截的工具调用不显示原因或原因被截断的问题，以及 Glob 和 Grep 将错误计入结果的问题</li>
             </ul>
           </div>
         </div>
@@ -29729,7 +29729,7 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:0 20px 40px
 <button class="top-btn" id="topBtn" type="button" title="回到顶部">↑</button>
 <footer>由 claude-code-changelog 自动生成 · 原文：<a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" target="_blank" rel="noopener">anthropics/claude-code CHANGELOG.md</a> · <span class="pv" id="pv" data-ep="https://1451971551-0sblc81ss1.ap-guangzhou.tencentscf.com"></span></footer>
 
-<script id="page-data" type="application/json">{"latest":"2.1.328","latestNpm":"2.1.328","generatedAt":"2026-11-19 09:00","counts":{"versions":444,"entries":10050,"highlights":1508}}</script>
+<script id="page-data" type="application/json">{"latest":"2.1.328","latestNpm":"2.1.328","generatedAt":"2026-11-19 09:07","counts":{"versions":444,"entries":10050,"highlights":1508}}</script>
 <script>
 (function(){
   'use strict';
