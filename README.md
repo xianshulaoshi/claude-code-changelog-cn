@@ -114,20 +114,36 @@ node cli.mjs --model glm-4.7
 
 执行链路：**腾讯云函数（香港区，每半小时）→ `workflow_dispatch` 触发 `update.yml` → 检测新版本 → GLM 翻译 → 提交推送 → `deploy.yml` 自动发布 Pages**。翻译走智谱 Anthropic 兼容网关（`https://open.bigmodel.cn/api/anthropic` + `glm-5.3`），每版本约 1~5 次调用，成本不到一分钱；云函数每月花费约 ¥0.1。
 
-**为什么需要云函数当闹钟**：实测（2026-11-19）GitHub Actions 的 `schedule` 对本仓库从不派发（近 3 小时 11 个 cron 窗口全灭，disable/enable 重注册亦无效），且源服务器所在网络无法直连 `api.github.com`——香港区云函数同时满足「网络可达 + 不依赖任何常开机器」。`update.yml` 里保留的 schedule cron 仅作彩票，与本方案的 `concurrency` 不冲突。若不想使用腾讯云，cron-job.org 等境外免费定时服务同样可行（支持 POST + 自定义 Header，PAT 会存于第三方，务必只用最小权限细粒度 PAT）。
+**为什么需要云函数当闹钟**：实测（2026-11-19，观察窗口约 4 小时）GitHub Actions 的 `schedule` 对本仓库一窗未发——生产档 `13,43` 连灭 5 窗，改每 5 分钟测试档、disable/enable 重注册后再连灭 11 窗（14:42–15:32，约 50 分钟）。按「当前不派发」执行，但样本仅数小时、5 分钟档又属 GitHub 优先限流的档位（新注册 schedule 也常跳过早期窗口），故结论保留复查余地（复核：`gh api repos/xianshulaoshi/claude-code-changelog-cn/actions/runs?event=schedule`，恢复 `13,43` 跑满 48h 再定论）。另一现实约束：手头的腾讯云 CVM 出不了境（直连不了 `api.github.com`），本机又非常开——香港区云函数同时满足「网络可达 + 不依赖任何常开机器」。`update.yml` 里保留的 schedule cron 仅作彩票，与本方案的 `concurrency` 不冲突。若不想使用腾讯云，cron-job.org 等境外免费定时服务同样可行（支持 POST + 自定义 Header，PAT 会存于第三方，务必只用最小权限细粒度 PAT）。
 
-云函数配置（腾讯云控制台 → 云函数 SCF → 中国香港）：
+云函数真实代码在 [`scf-trigger/`](scf-trigger/)（`index.py` + `deploy.sh`，部署模式同 `pv-counter/`），每次执行三步：
+
+1. **npm 门禁**（`GATE=0` 可关）：对比 npm 最新版与仓库 `docs`——有新版本、或缺发布日期才触发，其余窗口零成本跳过（省 ~95% 无效 runner 启动）；任一查询失败一律放行（fail-open，宁多跑不漏更新）。
+2. **自愈 enable**：幂等 `PUT /repos/.../actions/workflows/update.yml/enable`——防 GitHub 对 60 天无仓库活动的 workflow 整体自动禁用（含 `workflow_dispatch`），导致 dispatch 403。
+3. **dispatch**：`POST .../dispatches`（`ref=main`），非 204 主动抛错，配合云监控告警即可发现断链。
+
+部署（需 [tccli](https://cloud.tencent.com/document/product/440/34065)，`TX_*` 建议用仅授权 SCF 的子账号密钥）：
+
+```bash
+cd scf-trigger
+TX_SID=xxx TX_SKEY=yyy ./deploy.sh                          # 仅更新代码（保留线上已有 GH_PAT）
+GH_PAT=github_pat_xxx TX_SID=xxx TX_SKEY=yyy ./deploy.sh    # 首次创建 / 轮换 PAT
+```
+
+或在控制台手建（腾讯云控制台 → 云函数 SCF → 中国香港）：
 
 | 项 | 值 |
 |---|---|
-| 函数名 / 运行环境 | `changelog-trigger` / Python 3.13 |
+| 函数名 / 运行环境 | `changelog-trigger` / Python 3.13（控制台可选运行时；代码零依赖、兼容 3.6+） |
+| 入口 / 规格 | `index.main_handler` / 128MB、超时 60s |
 | 触发器 | 定时触发 `every-30min`（每半小时，北京时间 :00/:30） |
-| 环境变量 | `GH_PAT` = GitHub 细粒度 PAT（仅本仓库、Actions 读写权限） |
-| 函数逻辑 | `urllib` POST `repos/xianshulaoshi/claude-code-changelog-cn/actions/workflows/update.yml/dispatches`，body `{"ref":"main"}`，成功返回 `{"status":204,"msg":"triggered"}` |
+| 环境变量 | `GH_PAT` = GitHub 细粒度 PAT（本仓库 Actions 读写 +（建议）Contents 只读）；`REPO` / `WORKFLOW` / `BRANCH` / `GATE` 可选，默认见 `index.py` 头注 |
 
-一次性配置：① 仓库 **Settings → Secrets → Actions** 添加 `GLM_API_KEY`（智谱 API Key）；② GitHub 建细粒度 PAT（90 天有效期，到期需 regenerate 后更新云函数环境变量）；③ 按上表建云函数。如需换模型/网关，改 workflow 里的环境变量即可。方案 A **不使用** `update.env`——密钥只存于 GitHub Secret 与云函数环境变量（均只写不可读）。
+一次性配置：① 仓库 **Settings → Secrets → Actions** 添加 `GLM_API_KEY`（智谱 API Key）；② GitHub 建细粒度 PAT（仅本仓库、Actions 读写，建议再勾 Contents:只读——npm 门禁靠它比对 docs 版本，缺了门禁退化为每次必触发；有效期创建时自选——预设 7/30/60/90 天，可自定义最长 366 天，个人仓库可不设过期，本文按 90 天示例，到期 regenerate 后更新云函数环境变量）；③ 部署云函数（上节一条命令）。如需换模型/网关，改 workflow 里的环境变量即可。方案 A **不使用** `update.env`——密钥存于 GitHub Secret（只写不可读）与云函数环境变量；注意后者是**明文存储**：控制台「函数配置」和 `GetFunction` 接口都能直接看到 `GH_PAT`，别给他人开这台函数的查看权限，PAT 务必保持最小授权。
 
-### 方案 B：服务器 cron（腾讯云等，GitHub 机房连不上网关时的替代）
+**失效可见性（重要）**：本链路唯一的告警源就是云函数自身——PAT 到期、账号欠费、触发器误删时，每次 dispatch 得到 401/403 却不留痕（不产生 GitHub run、不发通知）。两个低成本兜底：给函数配**云监控告警**（SCF 控制台 → 告警配置，对「调用错误」告警；`index.py` 对非 204 会主动抛错）；站点页眉的「生成于 <时间>」就是肉眼 canary，几天不动即链路已断。
+
+### 方案 B：服务器 cron（不想碰云函数/PAT 的替代，需一台能连 GitHub 与 LLM 网关的常开机器）
 
 ```bash
 # 服务器上（需 Node ≥ 18、git 推送权限）：

@@ -16,10 +16,9 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
+# concurrency 故意放在下面 deploy job 级而非 workflow 级：workflow 级会在 run 准入时就把
+# update 链式触发的空跑也拉进 'pages' 组，cancel-in-progress 可能先取消正在跑的真实部署、
+# 随后 changes 才判定 skip——空跑杀真跑；job 级让空跑根本进不了组。
 jobs:
   # workflow_run 对每次 update 运行结束都会触发（含无新提交的空跑），
   # 这里对比 update 运行开始时的提交与 main 当前 tip：相同说明没有新提交，跳过部署
@@ -46,6 +45,9 @@ jobs:
     needs: changes
     if: needs.changes.result == 'success' && needs.changes.outputs.skip != 'true'
     runs-on: ubuntu-latest
+    concurrency: # 只有真要部署的 run 才进组；空跑已在 needs(changes) 的 skip 处被拦下
+      group: pages
+      cancel-in-progress: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
