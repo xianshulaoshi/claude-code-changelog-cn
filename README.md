@@ -110,11 +110,22 @@ node cli.mjs --model glm-4.7
 
 翻译缓存 `out/cache.json` 随仓库提交：增量更新时**只对新版本调用 LLM**，历史 440+ 版本零成本复用。门禁脚本 `scripts/check-new.mjs` 对比「上游 changelog / npm / 本地 docs」，有新版本、或最新版本缺发布日期时才触发更新。
 
-### 方案 A：GitHub Actions 全自动（推荐，零服务器）
+### 方案 A：SCF 定时触发 + GitHub Actions 执行（推荐，零服务器常驻）
 
-`.github/workflows/update.yml` 每小时运行两次：检测新版本 → GLM 翻译 → 提交推送 → `deploy.yml` 自动发布 Pages。翻译走智谱 Anthropic 兼容网关（`https://open.bigmodel.cn/api/anthropic` + `glm-5.3`），每版本约 1~5 次调用，成本不到一分钱。
+执行链路：**腾讯云函数（香港区，每半小时）→ `workflow_dispatch` 触发 `update.yml` → 检测新版本 → GLM 翻译 → 提交推送 → `deploy.yml` 自动发布 Pages**。翻译走智谱 Anthropic 兼容网关（`https://open.bigmodel.cn/api/anthropic` + `glm-5.3`），每版本约 1~5 次调用，成本不到一分钱；云函数每月花费约 ¥0.1。
 
-一次性配置：仓库 **Settings → Secrets and variables → Actions → New repository secret**，Name 填 `GLM_API_KEY`，Value 填智谱 API Key。如需换模型/网关，改 workflow 里的环境变量即可。方案 A **不使用** `update.env`——密钥只存于 GitHub Secret（只写不可读，日志自动打码）。
+**为什么需要云函数当闹钟**：实测（2026-11-19）GitHub Actions 的 `schedule` 对本仓库从不派发（近 3 小时 11 个 cron 窗口全灭，disable/enable 重注册亦无效），且源服务器所在网络无法直连 `api.github.com`——香港区云函数同时满足「网络可达 + 不依赖任何常开机器」。`update.yml` 里保留的 schedule cron 仅作彩票，与本方案的 `concurrency` 不冲突。若不想使用腾讯云，cron-job.org 等境外免费定时服务同样可行（支持 POST + 自定义 Header，PAT 会存于第三方，务必只用最小权限细粒度 PAT）。
+
+云函数配置（腾讯云控制台 → 云函数 SCF → 中国香港）：
+
+| 项 | 值 |
+|---|---|
+| 函数名 / 运行环境 | `changelog-trigger` / Python 3.13 |
+| 触发器 | 定时触发 `every-30min`（每半小时，北京时间 :00/:30） |
+| 环境变量 | `GH_PAT` = GitHub 细粒度 PAT（仅本仓库、Actions 读写权限） |
+| 函数逻辑 | `urllib` POST `repos/xianshulaoshi/claude-code-changelog-cn/actions/workflows/update.yml/dispatches`，body `{"ref":"main"}`，成功返回 `{"status":204,"msg":"triggered"}` |
+
+一次性配置：① 仓库 **Settings → Secrets → Actions** 添加 `GLM_API_KEY`（智谱 API Key）；② GitHub 建细粒度 PAT（90 天有效期，到期需 regenerate 后更新云函数环境变量）；③ 按上表建云函数。如需换模型/网关，改 workflow 里的环境变量即可。方案 A **不使用** `update.env`——密钥只存于 GitHub Secret 与云函数环境变量（均只写不可读）。
 
 ### 方案 B：服务器 cron（腾讯云等，GitHub 机房连不上网关时的替代）
 
