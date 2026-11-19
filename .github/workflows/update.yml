@@ -5,8 +5,11 @@ name: Auto Update Changelog
 # 需要在仓库 Settings → Secrets and variables → Actions 配置 Secret：GLM_API_KEY（智谱 API Key）
 
 on:
+  # 实测（2026-11-19）该仓库的 schedule 从未被 GitHub 派发（11+ 窗口全灭，disable/enable 也救不活）。
+  # 真正的触发源是腾讯云函数 SCF（香港区 changelog-trigger，每半小时）调 workflow_dispatch。
+  # 保留此 cron 作彩票：万一哪天 GitHub 恢复派发，与本 workflow 的 concurrency 不冲突。
   schedule:
-    - cron: '2-59/5 * * * *' # 【临时】验证 schedule 是否可用：每 5 分钟一次（错开整点拥挤分钟）。验证后改回 '13,43 * * * *'
+    - cron: '13,43 * * * *'
   workflow_dispatch:
 
 permissions:
