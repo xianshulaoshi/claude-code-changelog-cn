@@ -1,4 +1,6 @@
 node_modules/
-out/
+out/*
+!out/cache.json
 .DS_Store
 *.log
+update.env
