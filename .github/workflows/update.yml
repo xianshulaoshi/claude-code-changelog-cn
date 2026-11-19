@@ -6,7 +6,7 @@ name: Auto Update Changelog
 
 on:
   schedule:
-    - cron: '13,43 * * * *' # 每小时两次，错开整点降低 GitHub 定时拥挤延迟
+    - cron: '2-59/5 * * * *' # 【临时】验证 schedule 是否可用：每 5 分钟一次（错开整点拥挤分钟）。验证后改回 '13,43 * * * *'
   workflow_dispatch:
 
 permissions:
