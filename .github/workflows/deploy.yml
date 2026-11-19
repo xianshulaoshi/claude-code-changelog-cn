@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths: ['docs/**', '.github/workflows/deploy.yml']
   workflow_dispatch:
+  # update.yml 用 GITHUB_TOKEN 推送，按 GitHub 防递归规则不会触发 push 事件，
+  # 因此在其运行结束后通过 workflow_run 链式触发部署（官方推荐的接力方案）
+  workflow_run:
+    workflows: ['Auto Update Changelog']
+    types: [completed]
 
 permissions:
   contents: read
@@ -16,13 +21,38 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # workflow_run 对每次 update 运行结束都会触发（含无新提交的空跑），
+  # 这里对比 update 运行开始时的提交与 main 当前 tip：相同说明没有新提交，跳过部署
+  changes:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main # workflow_run 事件的默认 GITHUB_SHA 是 update 运行前的旧提交，必须显式取 main 最新 tip
+          fetch-depth: 1
+      - id: check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ] && [ "$(git rev-parse HEAD)" = "${{ github.event.workflow_run.head_sha }}" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "update 运行无新提交，跳过部署"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
   deploy:
+    needs: changes
+    if: needs.changes.result == 'success' && needs.changes.outputs.skip != 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main # 同上：显式取 main tip，避免部署 update 运行前的旧内容
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
