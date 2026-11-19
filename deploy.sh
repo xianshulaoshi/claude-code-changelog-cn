@@ -15,7 +15,7 @@ cp out/index.html docs/index.html
 rm -rf docs/versions
 cp -R out/versions docs/versions
 
-git add docs
+git add docs out/cache.json
 if git diff --cached --quiet; then
   echo "没有变化，无需部署"
   exit 0

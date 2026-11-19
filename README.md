@@ -99,41 +99,36 @@ node cli.mjs --model glm-4.7
 仓库：<https://github.com/xianshulaoshi/claude-code-changelog-cn>
 
 - `docs/` 为站点目录（`index.html` + `versions/<版本号>.md` 每版本一档），由 `.github/workflows/deploy.yml` 在 push 后自动发布到 GitHub Pages
-- 一键更新部署：`./deploy.sh [N]`（默认收录最近 10 个版本，如 `./deploy.sh 30`）——增量翻译 → 拷贝到 `docs/` → 提交推送，Actions 自动上线
 
-本地自动定时更新并部署（crontab，每天 10:00）：
+## 自动更新（新版本 → 翻译 → 发布，全自动）
 
-```cron
-0 10 * * * cd /path/to/claude-code-changelog && ./deploy.sh >> out/run.log 2>&1
+翻译缓存 `out/cache.json` 随仓库提交：增量更新时**只对新版本调用 LLM**，历史 440+ 版本零成本复用。门禁脚本 `scripts/check-new.mjs` 对比「上游 changelog / npm / 本地 docs」，有新版本、或最新版本缺发布日期时才触发更新。
+
+### 方案 A：GitHub Actions 全自动（推荐，零服务器）
+
+`.github/workflows/update.yml` 每小时运行两次：检测新版本 → GLM 翻译 → 提交推送 → `deploy.yml` 自动发布 Pages。翻译走智谱 Anthropic 兼容网关（`https://open.bigmodel.cn/api/anthropic` + `glm-5.3`），每版本约 1~5 次调用，成本不到一分钱。
+
+一次性配置：仓库 **Settings → Secrets and variables → Actions → New repository secret**，Name 填 `GLM_API_KEY`，Value 填智谱 API Key。如需换模型/网关，改 workflow 里的环境变量即可。
+
+### 方案 B：服务器 cron（腾讯云等，GitHub 机房连不上网关时的替代）
+
+```bash
+# 服务器上（需 Node ≥ 18、git 推送权限）：
+git clone git@github.com:xianshulaoshi/claude-code-changelog-cn.git
+cd claude-code-changelog-cn
+cp update.env.example update.env && vim update.env    # 填 ANTHROPIC_AUTH_TOKEN 等
+
+# crontab -e：每小时检测一次，日志落 out/update.log
+0 * * * * cd /path/to/claude-code-changelog-cn && ./update.sh >> out/update.log 2>&1
 ```
 
-> 注意：翻译依赖本机的 LLM 网关（`ANTHROPIC_BASE_URL` 等），因此更新动作在本机执行；GitHub 侧只负责发布静态页面。
+`update.sh`：拉取远端 → 门禁检测 → `cli.mjs --all` 增量翻译 → 同步 `docs/` → 提交推送。自带 flock 防重叠、翻译失败不部署（下次自动重试）、`--dry-run` 演练模式。
 
-## 定时自动更新
+### 方案 C：本机手动
 
-crontab 示例（每天 10:00 自动增量更新，日志写入 out/run.log）：
-
-```cron
-0 10 * * * cd /path/to/claude-code-changelog && /usr/local/bin/node cli.mjs >> out/run.log 2>&1
-```
-
-launchd 示例（`~/Library/LaunchAgents/com.myspace.claude-changelog.plist`）：
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-  <key>Label</key><string>com.myspace.claude-changelog</string>
-  <key>ProgramArguments</key><array>
-    <string>/usr/local/bin/node</string>
-    <string>/path/to/claude-code-changelog/cli.mjs</string>
-  </array>
-  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>0</integer></dict>
-  <key>EnvironmentVariables</key><dict>
-    <key>ANTHROPIC_BASE_URL</key><string>你的网关地址</string>
-    <key>ANTHROPIC_AUTH_TOKEN</key><string>你的令牌</string>
-  </dict>
-</dict></plist>
+```bash
+./update.sh        # 增量更新到最新版本并部署（全量收录）
+./deploy.sh 30     # 手动收录最近 30 个版本并部署（注意：会把站点收录范围缩小到 N 个，下次 update.sh 恢复全量）
 ```
 
 ## 工作原理

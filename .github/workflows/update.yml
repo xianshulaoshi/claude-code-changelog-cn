@@ -1,0 +1,69 @@
+name: Auto Update Changelog
+
+# 定时检测 Claude Code 新版本 → 用 GLM（智谱 Anthropic 兼容网关）翻译 → 更新 docs 并推送
+# 推送后由 deploy.yml 自动发布到 GitHub Pages。
+# 需要在仓库 Settings → Secrets and variables → Actions 配置 Secret：GLM_API_KEY（智谱 API Key）
+
+on:
+  schedule:
+    - cron: '13,43 * * * *' # 每小时两次，错开整点降低 GitHub 定时拥挤延迟
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # pull --rebase 需要历史
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 检测新版本
+        id: gate
+        run: |
+          code=0
+          node scripts/check-new.mjs || code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" = "2" ]; then echo "::error::版本检测失败（数据源不可达？）"; exit 1; fi
+
+      - name: 翻译并生成页面
+        if: steps.gate.outputs.code == '0'
+        env:
+          ANTHROPIC_BASE_URL: https://open.bigmodel.cn/api/anthropic
+          ANTHROPIC_AUTH_TOKEN: ${{ secrets.GLM_API_KEY }}
+          CHANGELOG_TRANSLATOR_MODEL: glm-5.3
+        run: node cli.mjs --all --quiet
+
+      - name: 同步到 docs
+        if: steps.gate.outputs.code == '0'
+        run: |
+          cp out/index.html docs/index.html
+          rm -rf docs/versions
+          cp -R out/versions docs/versions
+
+      - name: 提交并推送
+        if: steps.gate.outputs.code == '0'
+        run: |
+          git config user.name "claude-changelog-bot"
+          git config user.email "xianshulaoshi@users.noreply.github.com"
+          git add docs out/cache.json
+          if git diff --cached --quiet; then
+            echo "渲染结果无变化，跳过推送"
+            exit 0
+          fi
+          LATEST=$(ls docs/versions | sed 's/\.md$//' | sort -V | tail -1)
+          git commit -m "docs: 自动更新至 v${LATEST}（$(date -u '+%Y-%m-%d %H:%M') UTC）"
+          git pull --rebase --autostash origin main
+          git push origin main
+          echo "已推送 v${LATEST}，deploy 工作流将自动发布 Pages"
