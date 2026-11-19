@@ -108,7 +108,7 @@ node cli.mjs --model glm-4.7
 
 `.github/workflows/update.yml` 每小时运行两次：检测新版本 → GLM 翻译 → 提交推送 → `deploy.yml` 自动发布 Pages。翻译走智谱 Anthropic 兼容网关（`https://open.bigmodel.cn/api/anthropic` + `glm-5.3`），每版本约 1~5 次调用，成本不到一分钱。
 
-一次性配置：仓库 **Settings → Secrets and variables → Actions → New repository secret**，Name 填 `GLM_API_KEY`，Value 填智谱 API Key。如需换模型/网关，改 workflow 里的环境变量即可。
+一次性配置：仓库 **Settings → Secrets and variables → Actions → New repository secret**，Name 填 `GLM_API_KEY`，Value 填智谱 API Key。如需换模型/网关，改 workflow 里的环境变量即可。方案 A **不使用** `update.env`——密钥只存于 GitHub Secret（只写不可读，日志自动打码）。
 
 ### 方案 B：服务器 cron（腾讯云等，GitHub 机房连不上网关时的替代）
 
@@ -123,6 +123,8 @@ cp update.env.example update.env && vim update.env    # 填 ANTHROPIC_AUTH_TOKEN
 ```
 
 `update.sh`：拉取远端 → 门禁检测 → `cli.mjs --all` 增量翻译 → 同步 `docs/` → 提交推送。自带 flock 防重叠、翻译失败不部署（下次自动重试）、`--dry-run` 演练模式。
+
+**关于 `update.env`**：cron 没有交互终端，没法手动 `export`，所以用这个本地文件承载 LLM 密钥配置（`ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `CHANGELOG_TRANSLATOR_MODEL`），`update.sh` 启动时自动加载。它已被 `.gitignore` 覆盖，**永远不会进仓库**；仓库里只有占位符模板 `update.env.example`。同一套配置在方案 A 中的等价物是 GitHub Secret `GLM_API_KEY`。本机手动跑 `./update.sh` 时若嫌每次敲环境变量麻烦，也可以创建一份。
 
 ### 方案 C：本机手动
 
