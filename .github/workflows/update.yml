@@ -1,12 +1,15 @@
 name: Auto Update Changelog
 
-# 定时检测 Claude Code 新版本 → 用 GLM（智谱 Anthropic 兼容网关）翻译 → 更新 docs 并推送
+# 自动更新：检测 Claude Code 新版本 → 用 GLM（智谱 Anthropic 兼容网关）翻译 → 更新 docs 并推送
 # 推送后由 deploy.yml 自动发布到 GitHub Pages。
+# 主触发源：腾讯云函数 SCF（香港区 changelog-trigger，每半小时，代码见 scf-trigger/）调 workflow_dispatch。
 # 需要在仓库 Settings → Secrets and variables → Actions 配置 Secret：GLM_API_KEY（智谱 API Key）
 
 on:
-  # 实测（2026-11-19）该仓库的 schedule 从未被 GitHub 派发（11+ 窗口全灭，disable/enable 也救不活）。
-  # 真正的触发源是腾讯云函数 SCF（香港区 changelog-trigger，每半小时）调 workflow_dispatch。
+  # 实测（2026-11-19，观察窗口约 4 小时）schedule 一窗未发：13,43 档连灭 5 窗、改每 5 分钟档
+  # disable/enable 重注册后再连灭 11 窗（14:42–15:32，约 50 分钟）。按「当前不派发」执行，但样本
+  # 仅数小时、5 分钟档属 GitHub 优先限流档位，结论保留复查余地（恢复后跑满 48h 再定论；复核命令：
+  # gh api repos/xianshulaoshi/claude-code-changelog-cn/actions/runs?event=schedule）。
   # 保留此 cron 作彩票：万一哪天 GitHub 恢复派发，与本 workflow 的 concurrency 不冲突。
   schedule:
     - cron: '13,43 * * * *'
