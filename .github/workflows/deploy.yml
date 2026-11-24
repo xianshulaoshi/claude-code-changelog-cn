@@ -50,7 +50,8 @@ jobs:
       cancel-in-progress: true
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      # 三次尝试里成功的那次才有 page_url，其余为空串，用 || 串起来取到它
+      url: ${{ steps.deploy_1.outputs.page_url || steps.deploy_2.outputs.page_url || steps.deploy_3.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -59,5 +60,27 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs
-      - id: deployment
+      # deploy-pages 有已知的瞬时故障：制品刚上传成功，它去查制品却得到 0 个，直接报错
+      # （2026-11-23 实发，v2.1.331 因此没能发布，GitHub 的建议是"稍后重跑"）。这里就地重试：
+      # 最多 3 次、间隔 30s，全部失败才让 job 失败；某次成功后，其后的尝试全部跳过。
+      # 三次仍失败（如 GitHub 故障持续数分钟以上）由 SCF 门禁兜底——它探测到线上没跟上，
+      # 会改为直接派发本 workflow，见 scf-trigger/index.py。
+      # 每个「等待」与其后的尝试用同一个条件：只要下一次尝试要跑，就先等满间隔
+      - id: deploy_1
+        continue-on-error: true
+        run: echo "DRILL 强制失败 deploy_1"; exit 1
+      - if: steps.deploy_1.outcome != 'success'
+        run: sleep 30
+      - id: deploy_2
+        if: steps.deploy_1.outcome != 'success'
+        continue-on-error: true
+        run: echo "DRILL 强制失败 deploy_2"; exit 1
+      - if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success'
+        run: sleep 30
+      - id: deploy_3
+        if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success'
+        continue-on-error: true
         uses: actions/deploy-pages@v4
+      - name: 部署结果
+        if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success' && steps.deploy_3.outcome != 'success'
+        run: echo "::error::Pages 部署连续 3 次失败"; exit 1
