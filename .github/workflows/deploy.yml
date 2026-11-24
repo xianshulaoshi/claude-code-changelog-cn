@@ -68,13 +68,13 @@ jobs:
       # 每个「等待」与其后的尝试用同一个条件：只要下一次尝试要跑，就先等满间隔
       - id: deploy_1
         continue-on-error: true
-        run: echo "DRILL 强制失败 deploy_1"; exit 1
+        uses: actions/deploy-pages@v4
       - if: steps.deploy_1.outcome != 'success'
         run: sleep 30
       - id: deploy_2
         if: steps.deploy_1.outcome != 'success'
         continue-on-error: true
-        run: echo "DRILL 强制失败 deploy_2"; exit 1
+        uses: actions/deploy-pages@v4
       - if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success'
         run: sleep 30
       - id: deploy_3

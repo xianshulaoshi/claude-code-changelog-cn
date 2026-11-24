@@ -118,9 +118,19 @@ node cli.mjs --model glm-4.7
 
 云函数真实代码在 [`scf-trigger/`](scf-trigger/)（`index.py` + `deploy.sh`，部署模式同 `pv-counter/`），每次执行三步：
 
-1. **npm 门禁**（`GATE=0` 可关）：对比 npm 最新版与仓库 `docs`——有新版本、或缺发布日期才触发，其余窗口零成本跳过（省 ~95% 无效 runner 启动）；任一查询失败一律放行（fail-open，宁多跑不漏更新）。
-2. **自愈 enable**：幂等 `PUT /repos/.../actions/workflows/update.yml/enable`——防 GitHub 对 60 天无仓库活动的 workflow 整体自动禁用（含 `workflow_dispatch`），导致 dispatch 403。
+1. **门禁**（`GATE=0` 可关）：对比 npm 最新版、仓库 `docs` 与线上站点，判定本次做什么——
+   - npm 有新版本、或缺发布日期 → 触发 `update.yml`（重新翻译）；
+   - 仓库已最新，但线上站点的最新版本页缺失、或与仓库内容不一致 → 只触发 `deploy.yml`（补部署，见下）；
+   - 仓库与线上都已是最新 → 零成本跳过（省 ~95% 无效 runner 启动）。
+
+   任一查询失败一律放行触发（fail-open，宁多跑不漏更新）。
+2. **自愈 enable**：幂等 `PUT /repos/.../actions/workflows/<目标 workflow>/enable`——防 GitHub 对 60 天无仓库活动的 workflow 整体自动禁用（含 `workflow_dispatch`），导致 dispatch 403。
 3. **dispatch**：`POST .../dispatches`（`ref=main`），非 204 主动抛错，配合云监控告警即可发现断链。
+
+**部署失败自愈（两层）**：更新链路的两级门禁（云函数、`check-new.mjs`）原本只看仓库，`deploy.yml` 一旦失败，仓库已经是「最新」，就再没有东西会重试部署——2026-11-23 的 v2.1.331 就是这样：翻译推送成功，链式部署却在 `actions/deploy-pages` 报 `No artifacts named "github-pages"`（GitHub 侧瞬时故障），站点在 2.1.330 卡了 4 个多小时。现在有两层兜底：
+
+- **就地重试**：`deploy.yml` 的部署步骤最多尝试 3 次、间隔 30s，某次成功后其余尝试跳过，全部失败才让 job 失败。
+- **定时补派发**：云函数门禁发现线上没跟上，就直接派发 `deploy.yml`（重复部署幂等）。探测方式是比对线上 `/versions/<最新版本>.md` 与仓库同名文件是否逐字节一致。**只覆盖最新版本页**——只改了 `index.html`、版本文件没变的提交（如手动改样式）不在兜底范围内，这类提交请留意 push 触发的那次部署是否成功。
 
 部署（需 [tccli](https://cloud.tencent.com/document/product/440/34065)，`TX_*` 建议用仅授权 SCF 的子账号密钥）：
 
@@ -137,11 +147,11 @@ GH_PAT=github_pat_xxx TX_SID=xxx TX_SKEY=yyy ./deploy.sh    # 首次创建 / 轮
 | 函数名 / 运行环境 | `changelog-trigger` / Python 3.13（控制台可选运行时；代码零依赖、兼容 3.6+） |
 | 入口 / 规格 | `index.main_handler` / 128MB、超时 60s |
 | 触发器 | 定时触发 `every-30min`（每半小时，北京时间 :00/:30） |
-| 环境变量 | `GH_PAT` = GitHub 细粒度 PAT（本仓库 Actions 读写 +（建议）Contents 只读）；`REPO` / `WORKFLOW` / `BRANCH` / `GATE` 可选，默认见 `index.py` 头注 |
+| 环境变量 | `GH_PAT` = GitHub 细粒度 PAT（本仓库 Actions 读写 +（建议）Contents 只读）；`REPO` / `WORKFLOW` / `BRANCH` / `GATE` / `DEPLOY_WORKFLOW` / `SITE` 可选，默认见 `index.py` 头注 |
 
 一次性配置：① 仓库 **Settings → Secrets → Actions** 添加 `GLM_API_KEY`（智谱 API Key）；② GitHub 建细粒度 PAT（仅本仓库、Actions 读写，建议再勾 Contents:只读——npm 门禁靠它比对 docs 版本，缺了门禁退化为每次必触发；有效期创建时自选——预设 7/30/60/90 天，可自定义最长 366 天，个人仓库可不设过期，本文按 90 天示例，到期 regenerate 后更新云函数环境变量）；③ 部署云函数（上节一条命令）。如需换模型/网关，改 workflow 里的环境变量即可。方案 A **不使用** `update.env`——密钥存于 GitHub Secret（只写不可读）与云函数环境变量；注意后者是**明文存储**：控制台「函数配置」和 `GetFunction` 接口都能直接看到 `GH_PAT`，别给他人开这台函数的查看权限，PAT 务必保持最小授权。
 
-**失效可见性（重要）**：本链路唯一的告警源就是云函数自身——PAT 到期、账号欠费、触发器误删时，每次 dispatch 得到 401/403 却不留痕（不产生 GitHub run、不发通知）。两个低成本兜底：给函数配**云监控告警**（SCF 控制台 → 告警配置，对「调用错误」告警；`index.py` 对非 204 会主动抛错）；站点页眉的「生成于 <时间>」就是肉眼 canary，几天不动即链路已断。
+**失效可见性（重要）**：本链路唯一的告警源就是云函数自身——PAT 到期、账号欠费、触发器误删时，每次 dispatch 得到 401/403 却不留痕（不产生 GitHub run、不发通知）。两个低成本兜底：给函数配**云监控告警**（SCF 控制台 → 告警配置，对「调用错误」告警；`index.py` 对非 204 会主动抛错）；站点页眉的「生成于 <时间>」就是肉眼 canary，几天不动即链路已断。部署环节是例外，它失败得并不安静：`deploy.yml` 三次重试都没过时，云函数每半小时会补派发一次，Actions 页上就会持续出现红色的 `deploy.yml`（事件 `workflow_dispatch`）运行记录，线上恢复后自动消失。
 
 ### 方案 B：服务器 cron（不想碰云函数/PAT 的替代，需一台能连 GitHub 与 LLM 网关的常开机器）
 
