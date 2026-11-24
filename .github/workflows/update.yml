@@ -6,11 +6,11 @@ name: Auto Update Changelog
 # 需要在仓库 Settings → Secrets and variables → Actions 配置 Secret：GLM_API_KEY（智谱 API Key）
 
 on:
-  # 实测（2026-11-19，观察窗口约 4 小时）schedule 一窗未发：13,43 档连灭 5 窗、改每 5 分钟档
-  # disable/enable 重注册后再连灭 11 窗（14:42–15:32，约 50 分钟）。按「当前不派发」执行，但样本
-  # 仅数小时、5 分钟档属 GitHub 优先限流档位，结论保留复查余地（恢复后跑满 48h 再定论；复核命令：
-  # gh api repos/xianshulaoshi/claude-code-changelog-cn/actions/runs?event=schedule）。
-  # 保留此 cron 作彩票：万一哪天 GitHub 恢复派发，与本 workflow 的 concurrency 不冲突。
+  # 复查更正（2026-11-24）：schedule 会派发，只是稀疏又不准时——cron 每天要 48 班，实测 4.5 天只跑了
+  # 16 班（约 3.6 班/天，相邻两班间隔 4～12 小时，没有一班落在 :13/:43）。2026-11-19 首日的
+  # 「一窗未发」是新注册 schedule 的早期延迟，不是「不派发」。主触发源仍是云函数 SCF（每半小时，
+  # 见 scf-trigger/），本 cron 只作备份：与 SCF 的 workflow_dispatch 共用 concurrency 组，互不冲突。
+  # 复核命令：gh api repos/xianshulaoshi/claude-code-changelog-cn/actions/runs?event=schedule
   schedule:
     - cron: '13,43 * * * *'
   workflow_dispatch:

@@ -114,7 +114,7 @@ node cli.mjs --model glm-4.7
 
 执行链路：**腾讯云函数（香港区，每半小时）→ `workflow_dispatch` 触发 `update.yml` → 检测新版本 → GLM 翻译 → 提交推送 → `deploy.yml` 自动发布 Pages**。翻译走智谱 Anthropic 兼容网关（`https://open.bigmodel.cn/api/anthropic` + `glm-5.3`），每版本约 1~5 次调用，成本不到一分钱；云函数每月花费约 ¥0.1。
 
-**为什么需要云函数当闹钟**：实测（2026-11-19，观察窗口约 4 小时）GitHub Actions 的 `schedule` 对本仓库一窗未发——生产档 `13,43` 连灭 5 窗，改每 5 分钟测试档、disable/enable 重注册后再连灭 11 窗（14:42–15:32，约 50 分钟）。按「当前不派发」执行，但样本仅数小时、5 分钟档又属 GitHub 优先限流的档位（新注册 schedule 也常跳过早期窗口），故结论保留复查余地（复核：`gh api repos/xianshulaoshi/claude-code-changelog-cn/actions/runs?event=schedule`，恢复 `13,43` 跑满 48h 再定论）。另一现实约束：手头的腾讯云 CVM 出不了境（直连不了 `api.github.com`），本机又非常开——香港区云函数同时满足「网络可达 + 不依赖任何常开机器」。`update.yml` 里保留的 schedule cron 仅作彩票，与本方案的 `concurrency` 不冲突。若不想使用腾讯云，cron-job.org 等境外免费定时服务同样可行（支持 POST + 自定义 Header，PAT 会存于第三方，务必只用最小权限细粒度 PAT）。
+**为什么需要云函数当闹钟**：GitHub Actions 的 `schedule` 能用，但稀疏又不准时。2026-11-19 首日观察约 4 小时一窗未发，当时按「不派发」处理；2026-11-24 复查更正——那只是新注册 schedule 的早期延迟。复查数据（`gh api repos/xianshulaoshi/claude-code-changelog-cn/actions/runs?event=schedule`）：cron `13,43 * * * *` 每天应跑 48 班，实际 4.5 天只跑了 16 班（约 3.6 班/天），相邻两班间隔 4～12 小时（中位约 7 小时），没有一班落在 :13/:43。也就是说，只靠 schedule 的话，新版本从发布到被检测到平均要等 3～4 小时，最长 12 小时。云函数每半小时一班，把检测延迟压到 30 分钟以内；而且它门禁里的线上探测，是目前唯一会在部署失败后自动补派发的环节（见下文「部署失败自愈」）——schedule 触发的 `update.yml` 只做仓库侧检测。另一现实约束：手头的腾讯云 CVM 出不了境（直连不了 `api.github.com`），本机又非常开——香港区云函数同时满足「网络可达 + 不依赖任何常开机器」。`update.yml` 里保留的 schedule cron 作为备份，与云函数的派发共用同一个 `concurrency` 组，不会冲突。若不想使用腾讯云，cron-job.org 等境外免费定时服务同样可行（支持 POST + 自定义 Header，PAT 会存于第三方，务必只用最小权限细粒度 PAT）。
 
 云函数真实代码在 [`scf-trigger/`](scf-trigger/)（`index.py` + `deploy.sh`，部署模式同 `pv-counter/`），每次执行三步：
 
