@@ -132,6 +132,8 @@ node cli.mjs --model glm-4.7
 - **就地重试**：`deploy.yml` 的部署步骤最多尝试 3 次、间隔 30s，某次成功后其余尝试跳过，全部失败才让 job 失败。
 - **定时补派发**：云函数门禁发现线上没跟上，就直接派发 `deploy.yml`（重复部署幂等）。探测方式是比对线上 `/versions/<最新版本>.md` 与仓库同名文件是否逐字节一致。**只覆盖最新版本页**——只改了 `index.html`、版本文件没变的提交（如手动改样式）不在兜底范围内，这类提交请留意 push 触发的那次部署是否成功。
 
+**自测**：改过门禁或 `deploy.yml` 的重试编排后跑一遍——在仓库根目录执行 `python3 -B -m unittest discover -s scf-trigger -p 'test_*.py'`。`scf-trigger/test_index.py` 覆盖门禁三态、fail-open、派发目标与真实请求形态，只用标准库；`scf-trigger/test_deploy_workflow.py` 读取 `deploy.yml` 的真实结构，对每次部署尝试的所有结果组合求值其中的条件表达式，另需 `pip3 install pyyaml`。两者都不发真实网络请求，也不会派发任何 workflow。
+
 部署（需 [tccli](https://cloud.tencent.com/document/product/440/34065)，`TX_*` 建议用仅授权 SCF 的子账号密钥）：
 
 ```bash
